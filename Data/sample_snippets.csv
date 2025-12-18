@@ -1,0 +1,521 @@
+id,title,tags,language,usageCount,lastModified
+snip001,Binary Search Implementation,algorithm;search;array,C++,25,2024-12-01
+snip002,QuickSort Algorithm,algorithm;sorting;divide-conquer,Java,30,2024-12-02
+snip003,Linked List Traversal,data-structure;linked-list;traversal,C++,15,2024-12-03
+snip004,Hash Table Insert,data-structure;hash-table;insert,Python,20,2024-12-04
+snip005,Dijkstra's Shortest Path,graph;algorithm;shortest-path,C++,18,2024-12-05
+snip006,BFS Tree Traversal,graph;tree;traversal;search,Java,22,2024-12-06
+snip007,Dynamic Programming Fibonacci,algorithm;dynamic-programming;recursion,Python,12,2024-12-07
+snip008,AVL Tree Rotation,data-structure;tree;balanced-tree;rotation,C++,10,2024-12-08
+snip009,Heap Sort Implementation,algorithm;sorting;heap,Java,28,2024-12-09
+snip010,Trie Insert Operation,data-structure;trie;string;insert,C++,16,2024-12-10
+snip011,Merge Sort Recursive,algorithm;sorting;divide-conquer;recursion,Python,24,2024-12-11
+snip012,Stack Push Pop Operations,data-structure;stack;operations,Java,19,2024-12-12
+snip013,DFS Graph Traversal,graph;traversal;search;depth-first,C++,21,2024-12-13
+snip014,Queue Circular Implementation,data-structure;queue;circular,Python,14,2024-12-14
+snip015,Binary Tree Inorder Traversal,tree;traversal;binary-tree;recursion,Java,17,2024-12-15
+snip016,Pattern Matching KMP,algorithm;string;pattern-matching,C++,11,2024-12-16
+snip017,Priority Queue with Heap,data-structure;heap;priority-queue,Python,23,2024-12-17
+snip018,Graph Cycle Detection,graph;algorithm;cycle-detection,Java,13,2024-12-18
+snip019,Red-Black Tree Insert,data-structure;tree;balanced-tree;red-black,C++,9,2024-12-19
+snip020,Bubble Sort Simple,algorithm;sorting;basic,Python,26,2024-12-20
+snip021,Insertion Sort Optimization,algorithm;sorting;optimization,C++,27,2024-12-21
+snip022,Selection Sort Loop,algorithm;sorting;basic,Java,18,2024-12-22
+snip023,Counting Sort Linear,algorithm;sorting;linear,Python,21,2024-12-23
+snip024,Radix Sort Digits,algorithm;sorting;radix,C++,19,2024-12-24
+snip025,Shell Sort Gap,algorithm;sorting;gap-sequence,Java,16,2024-12-25
+snip026,Heap Construction,data-structure;heap;tree,Python,24,2024-12-26
+snip027,Min Heap Operations,data-structure;heap;min-heap,C++,22,2024-12-27
+snip028,Max Heap Priority,data-structure;heap;max-heap,Java,20,2024-12-28
+snip029,Segment Tree Build,data-structure;segment-tree;range-query,Python,15,2024-12-29
+snip030,Fenwick Tree Update,data-structure;fenwick-tree;binary-indexed,C++,18,2024-12-30
+snip031,Union Find Disjoint Set,data-structure;union-find;disjoint-set,Java,25,2024-12-31
+snip032,Graph Representation Adjacency,graph;representation;adjacency-list,Python,26,2024-01-01
+snip033,Graph DFS Iterative,graph;dfs;iterative,C++,17,2024-01-02
+snip034,Graph BFS Level Order,graph;bfs;level-order,Java,23,2024-01-03
+snip035,Topological Sort Kahn,graph;topological-sort;kahn,Python,19,2024-01-04
+snip036,Strongly Connected Components,graph;scc;kosaraju,C++,14,2024-01-05
+snip037,Minimum Spanning Tree Kruskal,graph;mst;kruskal,Java,21,2024-01-06
+snip038,Prim's Algorithm MST,graph;prim;mst;greedy,Python,18,2024-01-07
+snip039,Floyd Warshall All Pairs,graph;shortest-path;all-pairs,C++,16,2024-01-08
+snip040,Bellman Ford Negative Edge,graph;shortest-path;negative-edge,Java,12,2024-01-09
+snip041,A* Search Algorithm,graph;search;heuristic,Python,20,2024-01-10
+snip042,Binary Search Tree Insert,data-structure;bst;insert,C++,25,2024-01-11
+snip043,BST Delete Node,data-structure;bst;delete,Java,17,2024-01-12
+snip044,BST Inorder Successor,data-structure;bst;successor,Python,19,2024-01-13
+snip045,BST Search Operation,data-structure;bst;search,C++,21,2024-01-14
+snip046,Balanced BST Self Balancing,data-structure;bst;balanced,Java,18,2024-01-15
+snip047,AVL Tree Balance Factor,data-structure;avl;balance,Python,16,2024-01-16
+snip048,Splay Tree Splaying,data-structure;splay;self-adjusting,C++,13,2024-01-17
+snip049,B-Tree Node Split,data-structure;b-tree;node-split,Java,15,2024-01-18
+snip050,Red Black Tree Color,data-structure;red-black;color-property,Python,14,2024-01-19
+snip051,Trie Search Prefix,data-structure;trie;prefix-search,C++,22,2024-01-20
+snip052,Suffix Array Construction,data-structure;suffix-array;string,Java,18,2024-01-21
+snip053,KMP String Matching,algorithm;string;kmp,Python,20,2024-01-22
+snip054,Boyer Moore Search,algorithm;string;boyer-moore,C++,16,2024-01-23
+snip055,Z Algorithm String,algorithm;string;z-algorithm,Java,17,2024-01-24
+snip056,Rabin Karp Hashing,algorithm;string;rolling-hash,Python,19,2024-01-25
+snip057,Aho Corasick Multiple Pattern,algorithm;string;aho-corasick,C++,14,2024-01-26
+snip058,Longest Palindrome Substring,algorithm;string;palindrome,Java,21,2024-01-27
+snip059,Longest Common Subsequence,algorithm;lcs;dynamic-programming,Python,23,2024-01-28
+snip060,Edit Distance Levenshtein,algorithm;edit-distance;dp,C++,20,2024-01-29
+snip061,Knapsack 0-1 DP,algorithm;knapsack;dynamic-programming,Java,25,2024-01-30
+snip062,Unbounded Knapsack,algorithm;knapsack;unbounded,Python,18,2024-01-31
+snip063,Fractional Knapsack Greedy,algorithm;knapsack;greedy,C++,19,2024-02-01
+snip064,Coin Change DP,algorithm;coin-change;dynamic-programming,Java,22,2024-02-02
+snip065,Subset Sum Problem,algorithm;subset-sum;dynamic-programming,Python,17,2024-02-03
+snip066,Partition Equal Sum,algorithm;partition;dynamic-programming,C++,15,2024-02-04
+snip067,Maximum Sum Subarray,algorithm;maximum-subarray;kadane,Java,24,2024-02-05
+snip068,House Robber DP,algorithm;house-robber;dynamic-programming,Python,21,2024-02-06
+snip069,Longest Increasing Subsequence,algorithm;lis;dynamic-programming,C++,19,2024-02-07
+snip070,Catalan Number Recursion,algorithm;catalan;combinatorics,Java,16,2024-02-08
+snip071,Matrix Chain Multiplication,algorithm;mcm;dynamic-programming,Python,18,2024-02-09
+snip072,Optimal Binary Search Tree,algorithm;bst;dynamic-programming,C++,13,2024-02-10
+snip073,Travelling Salesman Problem,algorithm;tsp;dynamic-programming,Java,20,2024-02-11
+snip074,Graph Coloring Backtracking,algorithm;coloring;backtracking,Python,17,2024-02-12
+snip075,N Queens Problem,algorithm;n-queens;backtracking,C++,22,2024-02-13
+snip076,Sudoku Solver Backtrack,algorithm;sudoku;backtracking,Java,19,2024-02-14
+snip077,Permutation Generation Recursion,algorithm;permutation;recursion,Python,21,2024-02-15
+snip078,Combination Generation Recursion,algorithm;combination;recursion,C++,18,2024-02-16
+snip079,Power Set Iteration,algorithm;power-set;iteration,Java,20,2024-02-17
+snip080,Gray Code Sequence,algorithm;gray-code;binary,Python,15,2024-02-18
+snip081,Binary Exponentiation Fast,algorithm;exponentiation;fast-power,C++,23,2024-02-19
+snip082,Greatest Common Divisor,algorithm;gcd;euclidean,Java,26,2024-02-20
+snip083,Least Common Multiple,algorithm;lcm;number-theory,Python,19,2024-02-21
+snip084,Prime Number Sieve,algorithm;prime;sieve,C++,24,2024-02-22
+snip085,Prime Factorization,algorithm;factorization;number-theory,Java,17,2024-02-23
+snip086,Modular Arithmetic Inverse,algorithm;modular;number-theory,Python,16,2024-02-24
+snip087,Chinese Remainder Theorem,algorithm;crt;number-theory,C++,14,2024-02-25
+snip088,Random Number Generator,algorithm;random;generator,Java,18,2024-02-26
+snip089,Shuffle Array Fisher Yates,algorithm;shuffle;randomization,Python,20,2024-02-27
+snip090,Reservoir Sampling,algorithm;reservoir;sampling,C++,15,2024-02-28
+snip091,Geometric Convex Hull,algorithm;convex-hull;geometry,Java,17,2024-02-29
+snip092,Line Intersection Geometry,algorithm;intersection;geometry,Python,16,2024-03-01
+snip093,Point in Polygon,algorithm;point-in-polygon;geometry,C++,18,2024-03-02
+snip094,Closest Pair Points,algorithm;closest-pair;divide-conquer,Java,19,2024-03-03
+snip095,Sorting Network Batcher,algorithm;sorting-network;parallel,Python,14,2024-03-04
+snip096,Bitwise AND Operation,algorithm;bitwise;bit-manipulation,C++,21,2024-03-05
+snip097,Bitwise OR Operation,algorithm;bitwise;bit-manipulation,Java,22,2024-03-06
+snip098,Bitwise XOR Operation,algorithm;bitwise;bit-manipulation,Python,20,2024-03-07
+snip099,Bit Manipulation Tricks,algorithm;bitwise;optimization,C++,23,2024-03-08
+snip100,Popcount Set Bits,algorithm;popcount;bit-manipulation,Java,18,2024-03-09
+snip101,Doubly Linked List Insert,data-structure;linked-list;doubly-linked,Python,19,2024-03-10
+snip102,Circular Linked List,data-structure;linked-list;circular,C++,17,2024-03-11
+snip103,Skip List Search,data-structure;skip-list;probabilistic,Java,16,2024-03-12
+snip104,Bloom Filter Insert,data-structure;bloom-filter;probabilistic,Python,15,2024-03-13
+snip105,Hash Table Collision,data-structure;hash-table;collision,C++,20,2024-03-14
+snip106,Linear Probing Hash,data-structure;hash-table;linear-probing,Java,18,2024-03-15
+snip107,Quadratic Probing Hash,data-structure;hash-table;quadratic-probing,Python,17,2024-03-16
+snip108,Double Hashing Hash,data-structure;hash-table;double-hashing,C++,19,2024-03-17
+snip109,Chaining Hash Separate,data-structure;hash-table;chaining,Java,21,2024-03-18
+snip110,Cuckoo Hashing,data-structure;hash-table;cuckoo,Python,16,2024-03-19
+snip111,LRU Cache Replacement,data-structure;lru;cache,C++,22,2024-03-20
+snip112,LFU Cache Frequency,data-structure;lfu;cache,Java,20,2024-03-21
+snip113,Deque Double Ended,data-structure;deque;queue,Python,18,2024-03-22
+snip114,Priority Queue Heap Based,data-structure;priority-queue;heap,C++,19,2024-03-23
+snip115,Fibonacci Heap Amortized,data-structure;fibonacci-heap;amortized,Java,15,2024-03-24
+snip116,Pairing Heap Mergeable,data-structure;pairing-heap;mergeable,Python,14,2024-03-25
+snip117,Van Emde Boas Tree,data-structure;veb-tree;recursive,C++,12,2024-03-26
+snip118,Cartesian Tree Range,data-structure;cartesian-tree;range,Java,16,2024-03-27
+snip119,Link Cut Tree Dynamic,data-structure;link-cut-tree;dynamic,Python,13,2024-03-28
+snip120,Persistent Data Structure,data-structure;persistent;versioning,C++,14,2024-03-29
+snip121,Treap Random Tree,data-structure;treap;random,Java,17,2024-03-30
+snip122,Scapegoat Tree Rebalance,data-structure;scapegoat;rebalancing,Python,15,2024-03-31
+snip123,Weight Balanced Tree,data-structure;weight-balanced;tree,C++,16,2024-04-01
+snip124,Range Tree 2D,data-structure;range-tree;2d,Java,17,2024-04-02
+snip125,KD Tree Search,data-structure;kd-tree;spatial,Python,18,2024-04-03
+snip126,Quad Tree Spatial,data-structure;quad-tree;spatial,C++,19,2024-04-04
+snip127,Oct Tree 3D,data-structure;oct-tree;3d,Java,16,2024-04-05
+snip128,R Tree Rectangle,data-structure;r-tree;spatial-index,Python,15,2024-04-06
+snip129,Trie Node Deletion,data-structure;trie;delete,C++,17,2024-04-07
+snip130,Radix Tree Compressed,data-structure;radix-tree;compression,Java,16,2024-04-08
+snip131,Patricia Tree Practical,data-structure;patricia-tree;string,Python,15,2024-04-09
+snip132,AC Automaton Pattern,data-structure;ac-automaton;pattern,C++,18,2024-04-10
+snip133,Suffix Tree Construction,data-structure;suffix-tree;string,Java,17,2024-04-11
+snip134,Suffix Link Traversal,data-structure;suffix-link;tree,Python,16,2024-04-12
+snip135,Graph Adjacency Matrix,graph;representation;matrix,C++,20,2024-04-13
+snip136,Graph Adjacency List,graph;representation;list,Java,21,2024-04-14
+snip137,Graph Edge List Storage,graph;representation;edge-list,Python,19,2024-04-15
+snip138,Graph Incidence Matrix,graph;representation;incidence,C++,18,2024-04-16
+snip139,Directed Acyclic Graph,graph;dag;topological,Java,22,2024-04-17
+snip140,Tree Parent Pointer,graph;tree;parent-pointer,Python,20,2024-04-18
+snip141,Forest Multiple Trees,graph;forest;trees,C++,19,2024-04-19
+snip142,Weakly Connected Component,graph;weakly-connected;directed,Java,17,2024-04-20
+snip143,Bridge Finding Algorithm,graph;bridge;articulation,Python,18,2024-04-21
+snip144,Articulation Point Cut,graph;articulation-point;cut,C++,19,2024-04-22
+snip145,Biconnected Component,graph;biconnected;component,Java,16,2024-04-23
+snip146,Two Coloring Bipartite,graph;coloring;bipartite,Python,20,2024-04-24
+snip147,Bipartite Matching Maximum,graph;bipartite-matching;flow,C++,17,2024-04-25
+snip148,Network Flow Maximum,graph;max-flow;network-flow,Java,18,2024-04-26
+snip149,Ford Fulkerson Flow,graph;ford-fulkerson;max-flow,Python,16,2024-04-27
+snip150,Edmonds Karp Algorithm,graph;edmonds-karp;flow,C++,15,2024-04-28
+snip151,Dinic Algorithm Flow,graph;dinic;flow,Java,17,2024-04-29
+snip152,Push Relabel Algorithm,graph;push-relabel;flow,Python,14,2024-04-30
+snip153,Min Cost Max Flow,graph;min-cost;flow,C++,16,2024-05-01
+snip154,Successive Shortest Path,graph;successive-shortest;min-cost,Java,15,2024-05-02
+snip155,Cycle Cancelling Algorithm,graph;cycle-cancelling;min-cost,Python,14,2024-05-03
+snip156,Minimum Vertex Cover,graph;vertex-cover;np-complete,C++,13,2024-05-04
+snip157,Maximum Independent Set,graph;independent-set;np-complete,Java,14,2024-05-05
+snip158,Clique Detection Problem,graph;clique;np-complete,Python,12,2024-05-06
+snip159,Graph Isomorphism Check,graph;isomorphism;comparison,C++,15,2024-05-07
+snip160,Planar Graph Test,graph;planar;embedding,Java,14,2024-05-08
+snip161,Graph Coloring Greedy,graph;coloring;greedy,Python,17,2024-05-09
+snip162,Chromatic Polynomial,graph;chromatic;polynomial,C++,12,2024-05-10
+snip163,Matching Augmenting Path,graph;matching;augmenting-path,Java,16,2024-05-11
+snip164,Stable Marriage Problem,graph;stable-matching;bipartite,Python,15,2024-05-12
+snip165,Petersen Graph Generation,graph;petersen;generation,C++,11,2024-05-13
+snip166,Complete Graph Generation,graph;complete;generation,Java,18,2024-05-14
+snip167,Sparse Graph Representation,graph;sparse;representation,Python,17,2024-05-15
+snip168,Dense Graph Representation,graph;dense;representation,C++,16,2024-05-16
+snip169,Tree Lowest Common Ancestor,tree;lca;binary-lifting,Java,21,2024-05-17
+snip170,LCA Offline Algorithm,tree;lca;offline,Python,19,2024-05-18
+snip171,LCA Dynamic Programming,tree;lca;dynamic-programming,C++,20,2024-05-19
+snip172,Heavy Light Decomposition,tree;heavy-light;decomposition,Java,17,2024-05-20
+snip173,Centroid Decomposition,tree;centroid;decomposition,Python,16,2024-05-21
+snip174,Link Cut Tree Split,tree;link-cut;split,C++,14,2024-05-22
+snip175,Euler Tour Technique,tree;euler-tour;dfs,Java,18,2024-05-23
+snip176,DFS Ordering Tree,tree;dfs-order;preorder-postorder,Python,17,2024-05-24
+snip177,BFS Level Tree,tree;bfs-level;level-order,C++,19,2024-05-25
+snip178,Tree Diameter Finding,tree;diameter;two-bfs,Java,20,2024-05-26
+snip179,Tree Height Calculation,tree;height;recursion,Python,18,2024-05-27
+snip180,Tree Width Breadth,tree;width;level-width,C++,17,2024-05-28
+snip181,Tree Isomorphism Check,tree;isomorphism;comparison,Java,15,2024-05-29
+snip182,Tree Morphing Transformation,tree;morphing;transformation,Python,14,2024-05-30
+snip183,Binary Tree Serialization,tree;serialization;preorder,C++,19,2024-05-31
+snip184,Binary Tree Deserialization,tree;deserialization;reconstruction,Java,18,2024-06-01
+snip185,Binary Tree Mirror Image,tree;mirror;reflection,Python,20,2024-06-02
+snip186,Binary Tree Vertical Order,tree;vertical-order;level,C++,17,2024-06-03
+snip187,Binary Tree Boundary Traversal,tree;boundary;traversal,Java,16,2024-06-04
+snip188,Binary Tree Zigzag Traversal,tree;zigzag;level-order,Python,18,2024-06-05
+snip189,Binary Tree Spiral Traversal,tree;spiral;dfs,C++,17,2024-06-06
+snip190,Binary Tree Path Sum,tree;path-sum;recursion,Java,21,2024-06-07
+snip191,Binary Tree Path List,tree;path-list;dfs,Python,19,2024-06-08
+snip192,Binary Tree Leaf Sum,tree;leaf-sum;traversal,C++,18,2024-06-09
+snip193,Binary Tree Root to Leaf,tree;root-to-leaf;path,Java,20,2024-06-10
+snip194,Binary Tree Cousin Nodes,tree;cousin;level,Python,16,2024-06-11
+snip195,Binary Tree Same Tree,tree;same;comparison,C++,19,2024-06-12
+snip196,Binary Tree Subtree Check,tree;subtree;traversal,Java,17,2024-06-13
+snip197,Binary Tree Invert Mirror,tree;invert;recursion,Python,21,2024-06-14
+snip198,Binary Tree View Top,tree;top-view;dfs,C++,18,2024-06-15
+snip199,Binary Tree View Bottom,tree;bottom-view;traversal,Java,17,2024-06-16
+snip200,Binary Tree View Left,tree;left-view;dfs,Python,19,2024-06-17
+snip201,Binary Tree View Right,tree;right-view;level-order,C++,20,2024-06-18
+snip202,Segment Tree Query,tree;segment-tree;range-query,Java,22,2024-06-19
+snip203,Segment Tree Update,tree;segment-tree;point-update,Python,20,2024-06-20
+snip204,Segment Tree Lazy,tree;segment-tree;lazy-propagation,C++,19,2024-06-21
+snip205,Segment Tree Merge,tree;segment-tree;merge,Java,18,2024-06-22
+snip206,Fenwick Tree Query,tree;fenwick;prefix-sum,Python,21,2024-06-23
+snip207,Fenwick Tree Update,tree;fenwick;point-update,C++,20,2024-06-24
+snip208,Fenwick Tree 2D,tree;fenwick;2d,Java,17,2024-06-25
+snip209,Square Decomposition,tree;square-decomposition;block,Python,18,2024-06-26
+snip210,Mo Algorithm Offline,tree;mo-algorithm;offline-query,C++,16,2024-06-27
+snip211,Sqrt Decomposition Query,tree;sqrt-decomposition;query,Java,17,2024-06-28
+snip212,Merge Sort Tree,tree;merge-sort-tree;inversion,Python,15,2024-06-29
+snip213,Dynamic Connectivity DSU,tree;dynamic-connectivity;dsu,C++,16,2024-06-30
+snip214,Persistent Segment Tree,tree;persistent-segment-tree;versioning,Java,14,2024-07-01
+snip215,Convex Hull Trick,tree;convex-hull-trick;optimization,Python,13,2024-07-02
+snip216,Divide Conquer Optimization,algorithm;divide-conquer;optimization,C++,17,2024-07-03
+snip217,Monotone Stack Optimization,algorithm;monotone-stack;optimization,Java,18,2024-07-04
+snip218,Sliding Window Maximum,algorithm;sliding-window;deque,Python,20,2024-07-05
+snip219,Two Pointer Technique,algorithm;two-pointer;traversal,C++,21,2024-07-06
+snip220,Binary Lifting Technique,algorithm;binary-lifting;doubling,Java,19,2024-07-07
+snip221,Prefix Sum Array,algorithm;prefix-sum;precomputation,Python,22,2024-07-08
+snip222,Difference Array Range,algorithm;difference-array;range,C++,20,2024-07-09
+snip223,Coordinate Compression,algorithm;coordinate-compression;mapping,Java,18,2024-07-10
+snip224,Small to Large Merging,algorithm;small-to-large;dsu,Python,17,2024-07-11
+snip225,Sqrt Trick Optimization,algorithm;sqrt-trick;optimization,C++,16,2024-07-12
+snip226,Matrix Exponentiation,algorithm;matrix-exponentiation;recursion,Java,19,2024-07-13
+snip227,Meet in Middle Search,algorithm;meet-in-middle;search,Python,18,2024-07-14
+snip228,Hash Map Precompute,algorithm;hash-map;precomputation,C++,21,2024-07-15
+snip229,Greedy Algorithm Exchange,algorithm;greedy;exchange-argument,Java,20,2024-07-16
+snip230,Activity Selection Greedy,algorithm;activity-selection;greedy,Python,19,2024-07-17
+snip231,Huffman Coding Greedy,algorithm;huffman-coding;greedy,C++,17,2024-07-18
+snip232,Job Sequencing Deadline,algorithm;job-sequencing;greedy,Java,18,2024-07-19
+snip233,Fractional Knapsack Greedy,algorithm;fractional-knapsack;greedy,Python,20,2024-07-20
+snip234,Interval Scheduling,algorithm;interval-scheduling;greedy,C++,19,2024-07-21
+snip235,Interval Partitioning,algorithm;interval-partitioning;greedy,Java,18,2024-07-22
+snip236,Weighted Interval Scheduling,algorithm;weighted-interval;dynamic-programming,Python,17,2024-07-23
+snip237,Exchange Argument Proof,algorithm;exchange-argument;greedy-proof,C++,15,2024-07-24
+snip238,Greedy Choice Property,algorithm;greedy-choice;proof,Java,14,2024-07-25
+snip239,Optimal Substructure Property,algorithm;optimal-substructure;proof,Python,13,2024-07-26
+snip240,Recursion Tree Analysis,algorithm;recursion-tree;complexity-analysis,C++,16,2024-07-27
+snip241,Master Theorem Application,algorithm;master-theorem;complexity,Java,18,2024-07-28
+snip242,Amortized Analysis,algorithm;amortized-analysis;complexity,Python,17,2024-07-29
+snip243,Potential Method Analysis,algorithm;potential-method;amortized,C++,15,2024-07-30
+snip244,Aggregate Analysis,algorithm;aggregate-analysis;amortized,Java,16,2024-07-31
+snip245,Accounting Method,algorithm;accounting-method;amortized,Python,14,2024-08-01
+snip246,Big O Notation Complexity,algorithm;big-o;complexity,C++,22,2024-08-02
+snip247,Big Omega Notation,algorithm;big-omega;complexity,Java,20,2024-08-03
+snip248,Big Theta Notation,algorithm;big-theta;complexity,Python,21,2024-08-04
+snip249,Little o Notation,algorithm;little-o;complexity,C++,18,2024-08-05
+snip250,Little Omega Notation,algorithm;little-omega;complexity,Java,19,2024-08-06
+snip251,NP Complete Problem,algorithm;np-complete;computational,Python,16,2024-08-07
+snip252,NP Hard Problem,algorithm;np-hard;computational,C++,15,2024-08-08
+snip253,Approximation Algorithm,algorithm;approximation;np-hard,Java,17,2024-08-09
+snip254,Randomized Algorithm,algorithm;randomized;monte-carlo,Python,18,2024-08-10
+snip255,Probabilistic Analysis,algorithm;probabilistic;analysis,C++,16,2024-08-11
+snip256,Las Vegas Algorithm,algorithm;las-vegas;randomized,Java,15,2024-08-12
+snip257,Monte Carlo Algorithm,algorithm;monte-carlo;randomized,Python,14,2024-08-13
+snip258,Quantum Algorithm Basics,algorithm;quantum;basics,C++,12,2024-08-14
+snip259,Parallel Algorithm,algorithm;parallel;multithreading,Java,13,2024-08-15
+snip260,Distributed Algorithm,algorithm;distributed;network,Python,11,2024-08-16
+snip261,Online Algorithm,algorithm;online;streaming,C++,14,2024-08-17
+snip262,Offline Algorithm,algorithm;offline;batch,Java,15,2024-08-18
+snip263,Cache Oblivious Algorithm,algorithm;cache-oblivious;memory,Python,12,2024-08-19
+snip264,Cache Aware Algorithm,algorithm;cache-aware;memory,C++,13,2024-08-20
+snip265,Streaming Algorithm,algorithm;streaming;online,Java,14,2024-08-21
+snip266,Sketch Algorithm,algorithm;sketch;approximation,Python,13,2024-08-22
+snip267,Data Structure Query,data-structure;query;lookup,C++,21,2024-08-23
+snip268,Data Structure Update,data-structure;update;modification,Java,20,2024-08-24
+snip269,Data Structure Traversal,data-structure;traversal;iteration,Python,19,2024-08-25
+snip270,Data Structure Serialization,data-structure;serialization;conversion,C++,18,2024-08-26
+snip271,Data Structure Copy,data-structure;copy;clone,Java,17,2024-08-27
+snip272,Data Structure Comparison,data-structure;comparison;equality,Python,16,2024-08-28
+snip273,Data Structure Iteration,data-structure;iteration;foreach,C++,19,2024-08-29
+snip274,Data Structure Reverse,data-structure;reverse;invert,Java,18,2024-08-30
+snip275,Data Structure Sort,data-structure;sort;ordering,Python,20,2024-08-31
+snip276,Data Structure Merge,data-structure;merge;combine,C++,19,2024-09-01
+snip277,Data Structure Split,data-structure;split;divide,Java,18,2024-09-02
+snip278,Data Structure Balance,data-structure;balance;rebalance,Python,17,2024-09-03
+snip279,Data Structure Compact,data-structure;compact;compression,C++,16,2024-09-04
+snip280,Data Structure Expand,data-structure;expand;growth,Java,17,2024-09-05
+snip281,Data Structure Rehash,data-structure;rehash;resize,Python,15,2024-09-06
+snip282,Data Structure Reserve,data-structure;reserve;allocate,C++,16,2024-09-07
+snip283,Data Structure Clear,data-structure;clear;reset,Java,17,2024-09-08
+snip284,Data Structure Swap,data-structure;swap;exchange,Python,18,2024-09-09
+snip285,Data Structure Rotate,data-structure;rotate;circular,C++,17,2024-09-10
+snip286,Data Structure Shuffle,data-structure;shuffle;randomize,Java,19,2024-09-11
+snip287,Data Structure Unique,data-structure;unique;dedup,Python,18,2024-09-12
+snip288,Data Structure Distinct,data-structure;distinct;deduplicate,C++,16,2024-09-13
+snip289,Data Structure Flatten,data-structure;flatten;convert,Java,17,2024-09-14
+snip290,Data Structure Nest,data-structure;nest;structure,Python,15,2024-09-15
+snip291,Data Structure Index,data-structure;index;indexing,C++,19,2024-09-16
+snip292,Data Structure Search,data-structure;search;lookup,Java,20,2024-09-17
+snip293,Data Structure Find,data-structure;find;discovery,Python,18,2024-09-18
+snip294,Data Structure Locate,data-structure;locate;position,C++,17,2024-09-19
+snip295,Data Structure Contains,data-structure;contains;membership,Java,19,2024-09-20
+snip296,Data Structure Add,data-structure;add;insert,Python,20,2024-09-21
+snip297,Data Structure Remove,data-structure;remove;delete,C++,19,2024-09-22
+snip298,Data Structure Replace,data-structure;replace;substitute,Java,18,2024-09-23
+snip299,Data Structure Move,data-structure;move;relocate,Python,17,2024-09-24
+snip300,Data Structure Access,data-structure;access;retrieve,C++,21,2024-09-25
+snip301,String Compare Operation,algorithm;string;compare,Java,18,2024-09-26
+snip302,String Concatenate Operation,algorithm;string;concatenate,Python,19,2024-09-27
+snip303,String Substring Extract,algorithm;string;substring,C++,20,2024-09-28
+snip304,String Replace Operation,algorithm;string;replace,Java,17,2024-09-29
+snip305,String Split Operation,algorithm;string;split,Python,18,2024-09-30
+snip306,String Trim Operation,algorithm;string;trim,C++,16,2024-10-01
+snip307,String Reverse Operation,algorithm;string;reverse,Java,19,2024-10-02
+snip308,String Upper Case,algorithm;string;uppercase,Python,17,2024-10-03
+snip309,String Lower Case,algorithm;string;lowercase,C++,18,2024-10-04
+snip310,String Contains Check,algorithm;string;contains,Java,20,2024-10-05
+snip311,String Starts With,algorithm;string;prefix,Python,18,2024-10-06
+snip312,String Ends With,algorithm;string;suffix,C++,17,2024-10-07
+snip313,String Index Of,algorithm;string;index,Java,19,2024-10-08
+snip314,String Last Index Of,algorithm;string;last-index,Python,16,2024-10-09
+snip315,Regular Expression Match,algorithm;regex;pattern-matching,C++,18,2024-10-10
+snip316,Number Conversion Base,algorithm;number;base-conversion,Java,19,2024-10-11
+snip317,Number Palindrome Check,algorithm;number;palindrome,Python,20,2024-10-12
+snip318,Number Fibonacci Sequence,algorithm;number;fibonacci,C++,21,2024-10-13
+snip319,Number Factorial Calculation,algorithm;number;factorial,Java,18,2024-10-14
+snip320,Number Triangular Sum,algorithm;number;triangular,Python,17,2024-10-15
+snip321,Number Perfect Check,algorithm;number;perfect,C++,16,2024-10-16
+snip322,Number Armstrong Check,algorithm;number;armstrong,Java,17,2024-10-17
+snip323,Number Harshad Number,algorithm;number;harshad,Python,15,2024-10-18
+snip324,Number Narcissistic,algorithm;number;narcissistic,C++,14,2024-10-19
+snip325,Number Abundant Deficient,algorithm;number;abundant-deficient,Java,16,2024-10-20
+snip326,Number Prime Generator,algorithm;number;prime-generation,Python,18,2024-10-21
+snip327,Number Mersenne Prime,algorithm;number;mersenne,C++,15,2024-10-22
+snip328,Number Twin Prime,algorithm;number;twin-prime,Java,16,2024-10-23
+snip329,Number Goldbach Conjecture,algorithm;number;goldbach,Python,14,2024-10-24
+snip330,Number Collatz Conjecture,algorithm;number;collatz,C++,13,2024-10-25
+snip331,Recursion Base Case,algorithm;recursion;base-case,Java,18,2024-10-26
+snip332,Recursion Tail Call,algorithm;recursion;tail-call,Python,17,2024-10-27
+snip333,Recursion Mutual Recursion,algorithm;recursion;mutual,C++,15,2024-10-28
+snip334,Recursion Tree Recursion,algorithm;recursion;tree,Java,16,2024-10-29
+snip335,Recursion Linear Recursion,algorithm;recursion;linear,Python,17,2024-10-30
+snip336,Iteration Loop Construct,algorithm;iteration;loop,C++,19,2024-10-31
+snip337,Iteration For Each Loop,algorithm;iteration;foreach,Java,20,2024-11-01
+snip338,Iteration While Loop,algorithm;iteration;while,Python,18,2024-11-02
+snip339,Iteration Do While Loop,algorithm;iteration;do-while,C++,17,2024-11-03
+snip340,Iteration Nested Loop,algorithm;iteration;nested,Java,19,2024-11-04
+snip341,Iteration Loop Control,algorithm;iteration;control,Python,18,2024-11-05
+snip342,Iteration Break Continue,algorithm;iteration;break-continue,C++,16,2024-11-06
+snip343,Conditional If Statement,algorithm;conditional;if,Java,21,2024-11-07
+snip344,Conditional If Else,algorithm;conditional;if-else,Python,20,2024-11-08
+snip345,Conditional Switch Case,algorithm;conditional;switch,C++,19,2024-11-09
+snip346,Conditional Ternary Operator,algorithm;conditional;ternary,Java,18,2024-11-10
+snip347,Conditional Short Circuit,algorithm;conditional;short-circuit,Python,17,2024-11-11
+snip348,Function Definition,algorithm;function;definition,C++,18,2024-11-12
+snip349,Function Parameter Passing,algorithm;function;parameter,Java,19,2024-11-13
+snip350,Function Return Value,algorithm;function;return,Python,20,2024-11-14
+snip351,Function Overloading,algorithm;function;overloading,C++,17,2024-11-15
+snip352,Function Default Parameter,algorithm;function;default,Java,16,2024-11-16
+snip353,Function Variable Scope,algorithm;function;scope,Python,17,2024-11-17
+snip354,Function Closure Capture,algorithm;function;closure,C++,15,2024-11-18
+snip355,Function Higher Order,algorithm;function;higher-order,Java,16,2024-11-19
+snip356,Function Callback Passing,algorithm;function;callback,Python,15,2024-11-20
+snip357,Function Lambda Expression,algorithm;function;lambda,C++,18,2024-11-21
+snip358,Pointer Reference Type,algorithm;pointer;reference,Java,17,2024-11-22
+snip359,Pointer Dereference Access,algorithm;pointer;dereference,Python,16,2024-11-23
+snip360,Pointer Null Safety,algorithm;pointer;null-safety,C++,14,2024-11-24
+snip361,Array Element Access,data-structure;array;element-access,Java,19,2024-11-25
+snip362,Array Bounds Checking,data-structure;array;bounds,Python,18,2024-11-26
+snip363,Array Dynamic Allocation,data-structure;array;dynamic,C++,17,2024-11-27
+snip364,Array Multi Dimensional,data-structure;array;multidimensional,Java,16,2024-11-28
+snip365,Array Jagged Array,data-structure;array;jagged,Python,15,2024-11-29
+snip366,List Array List,data-structure;list;array-list,C++,20,2024-11-30
+snip367,List Vector Container,data-structure;list;vector,Java,19,2024-12-01
+snip368,List Linked List,data-structure;list;linked-list,Python,18,2024-12-02
+snip369,List Array Deque,data-structure;list;deque,C++,17,2024-12-03
+snip370,Set Hash Set,data-structure;set;hash-set,Java,18,2024-12-04
+snip371,Set Tree Set,data-structure;set;tree-set,Python,17,2024-12-05
+snip372,Set Sorted Set,data-structure;set;sorted-set,C++,16,2024-12-06
+snip373,Set Navigable Set,data-structure;set;navigable,Java,15,2024-12-07
+snip374,Map Hash Map,data-structure;map;hash-map,Python,19,2024-12-08
+snip375,Map Tree Map,data-structure;map;tree-map,C++,18,2024-12-09
+snip376,Map Concurrent Map,data-structure;map;concurrent,Java,17,2024-12-10
+snip377,Map Weak Map,data-structure;map;weak-map,Python,16,2024-12-11
+snip378,Map Identity Map,data-structure;map;identity,C++,15,2024-12-12
+snip379,Map Enum Map,data-structure;map;enum-map,Java,14,2024-12-13
+snip380,Map Linked Map,data-structure;map;linked-hash,Python,16,2024-12-14
+snip381,Collection Framework,data-structure;collection;framework,C++,17,2024-12-15
+snip382,Iterator Pattern,data-structure;iterator;pattern,Java,18,2024-12-16
+snip383,Iterable Interface,data-structure;iterable;interface,Python,17,2024-12-17
+snip384,Enumeration Legacy,data-structure;enumeration;legacy,C++,15,2024-12-18
+snip385,Stream API Functional,data-structure;stream;functional,Java,19,2024-12-19
+snip386,Pipeline Stream Processing,data-structure;pipeline;stream,Python,18,2024-12-20
+snip387,Filter Stream Operation,data-structure;filter;stream,C++,17,2024-12-21
+snip388,Map Stream Transformation,data-structure;map-stream;transform,Java,16,2024-12-22
+snip389,Reduce Stream Aggregation,data-structure;reduce;aggregation,Python,18,2024-12-23
+snip390,Collect Stream Terminal,data-structure;collect;terminal,C++,17,2024-12-24
+snip391,Parallel Stream Processing,data-structure;parallel-stream;concurrent,Java,16,2024-12-25
+snip392,Sort Algorithm Bubble,algorithm;sort;bubble,Python,21,2024-12-26
+snip393,Sort Algorithm Selection,algorithm;sort;selection,C++,20,2024-12-27
+snip394,Sort Algorithm Insertion,algorithm;sort;insertion,Java,19,2024-12-28
+snip395,Sort Algorithm Shell,algorithm;sort;shell,Python,18,2024-12-29
+snip396,Sort Algorithm Merge,algorithm;sort;merge,C++,22,2024-12-30
+snip397,Sort Algorithm Quick,algorithm;sort;quicksort,Java,23,2024-12-31
+snip398,Sort Algorithm Heap,algorithm;sort;heapsort,Python,21,2024-01-01
+snip399,Sort Algorithm Radix,algorithm;sort;radix,C++,19,2024-01-02
+snip400,Sort Algorithm Counting,algorithm;sort;counting,Java,20,2024-01-03
+snip401,Sort Algorithm Bucket,algorithm;sort;bucket,Python,18,2024-01-04
+snip402,Sort Algorithm Gnome,algorithm;sort;gnome,C++,17,2024-01-05
+snip403,Sort Algorithm Comb,algorithm;sort;comb,Java,16,2024-01-06
+snip404,Sort Algorithm Cycle,algorithm;sort;cycle,Python,15,2024-01-07
+snip405,Sort Algorithm Pancake,algorithm;sort;pancake,C++,14,2024-01-08
+snip406,Sort Algorithm Cocktail,algorithm;sort;cocktail,Java,16,2024-01-09
+snip407,Search Algorithm Linear,algorithm;search;linear,Python,18,2024-01-10
+snip408,Search Algorithm Binary,algorithm;search;binary,C++,20,2024-01-11
+snip409,Search Algorithm Interpolation,algorithm;search;interpolation,Java,17,2024-01-12
+snip410,Search Algorithm Exponential,algorithm;search;exponential,Python,16,2024-01-13
+snip411,Search Algorithm Fibonacci,algorithm;search;fibonacci,C++,15,2024-01-14
+snip412,Search Algorithm Ternary,algorithm;search;ternary,Java,14,2024-01-15
+snip413,Search Algorithm Jump,algorithm;search;jump,Python,17,2024-01-16
+snip414,Subset Generation Bitwise,algorithm;subset;bitwise,C++,16,2024-01-17
+snip415,Subset Generation Iterative,algorithm;subset;iterative,Java,15,2024-01-18
+snip416,Subset Generation Recursive,algorithm;subset;recursive,Python,17,2024-01-19
+snip417,Permutation Generation Next,algorithm;permutation;next-permutation,C++,18,2024-01-20
+snip418,Permutation Generation Factorial,algorithm;permutation;factorial,Java,19,2024-01-21
+snip419,Combination Generation Pascal,algorithm;combination;pascal,Python,17,2024-01-22
+snip420,Combination Generation Recursive,algorithm;combination;recursive,C++,16,2024-01-23
+snip421,Partition Generation Recursion,algorithm;partition;recursive,Java,15,2024-01-24
+snip422,Partition Generation Iterative,algorithm;partition;iterative,Python,16,2024-01-25
+snip423,Subset Sum Dynamic,algorithm;subset-sum;dp,C++,18,2024-01-26
+snip424,Subset Sum Backtrack,algorithm;subset-sum;backtrack,Java,17,2024-01-27
+snip425,Partition Equal Dynamic,algorithm;partition;dp,Python,16,2024-01-28
+snip426,Partition Equal Backtrack,algorithm;partition;backtrack,C++,15,2024-01-29
+snip427,LCS Tabulation,algorithm;lcs;tabulation,Java,19,2024-01-30
+snip428,LCS Memoization,algorithm;lcs;memoization,Python,18,2024-01-31
+snip429,LCS Iterative,algorithm;lcs;iterative,C++,17,2024-02-01
+snip430,Edit Distance Tabulation,algorithm;edit-distance;tabulation,Java,20,2024-02-02
+snip431,Edit Distance Memoization,algorithm;edit-distance;memoization,Python,19,2024-02-03
+snip432,Edit Distance Iterative,algorithm;edit-distance;iterative,C++,18,2024-02-04
+snip433,Wildcard Matching,algorithm;wildcard;pattern-matching,Java,16,2024-02-05
+snip434,Regular Expression Matching,algorithm;regex;pattern-matching,Python,17,2024-02-06
+snip435,Distinct Subsequence,algorithm;subsequence;distinct,C++,15,2024-02-07
+snip436,Interleaving String,algorithm;interleaving;string,Java,16,2024-02-08
+snip437,Zigzag Conversion,algorithm;zigzag;string,Python,14,2024-02-09
+snip438,Integer to Roman,algorithm;conversion;roman,C++,17,2024-02-10
+snip439,Roman to Integer,algorithm;conversion;roman,Java,18,2024-02-11
+snip440,Valid Parenthesis,algorithm;parenthesis;validation,Python,19,2024-02-12
+snip441,Generate Parenthesis,algorithm;parenthesis;generation,C++,20,2024-02-13
+snip442,Longest Valid Parenthesis,algorithm;parenthesis;longest,Java,18,2024-02-14
+snip443,Text Justification,algorithm;text;formatting,Python,15,2024-02-15
+snip444,Simplify Path,algorithm;path;simplification,C++,16,2024-02-16
+snip445,Basic Calculator,algorithm;calculator;expression,Java,17,2024-02-17
+snip446,Calculator Two,algorithm;calculator;expression,Python,16,2024-02-18
+snip447,Largest Rectangle Histogram,algorithm;histogram;maximum-area,C++,18,2024-02-19
+snip448,Maximal Rectangle,algorithm;rectangle;maximum,Java,17,2024-02-20
+snip449,Distinct Subsequence Num,algorithm;subsequence;count,Python,16,2024-02-21
+snip450,Decode Ways,algorithm;decode;dynamic-programming,C++,19,2024-02-22
+snip451,Ugly Number,algorithm;ugly;dynamic-programming,Java,18,2024-02-23
+snip452,Super Ugly Number,algorithm;super-ugly;dynamic-programming,Python,17,2024-02-24
+snip453,Nth Digit,algorithm;digit;math,C++,15,2024-02-25
+snip454,Arrange Numbers,algorithm;arrangement;permutation,Java,16,2024-02-26
+snip455,Fraction Addition,algorithm;fraction;math,Python,14,2024-02-27
+snip456,Fraction Multiplication,algorithm;fraction;math,C++,15,2024-02-28
+snip457,Fraction Division,algorithm;fraction;math,Java,14,2024-02-29
+snip458,Add Binary,algorithm;binary;addition,Python,17,2024-03-01
+snip459,Multiply Strings,algorithm;string;multiplication,C++,16,2024-03-02
+snip460,Add Two Numbers List,algorithm;list;addition,Java,18,2024-03-03
+snip461,Rotate List,algorithm;list;rotation,Python,17,2024-03-04
+snip462,Remove Duplicates Sorted,algorithm;array;remove-duplicates,C++,19,2024-03-05
+snip463,Remove Duplicates Array,algorithm;array;remove-duplicates,Java,18,2024-03-06
+snip464,Best Time Stock,algorithm;array;trading,Python,20,2024-03-07
+snip465,Best Time Stock Limit,algorithm;trading;limit,C++,18,2024-03-08
+snip466,Best Time Stock Cooldown,algorithm;trading;cooldown,Java,17,2024-03-09
+snip467,Best Time Stock Fee,algorithm;trading;fee,Python,16,2024-03-10
+snip468,Candy Distribution,algorithm;array;distribution,C++,19,2024-03-11
+snip469,Gas Station,algorithm;array;greedy,Java,18,2024-03-12
+snip470,Jump Game,algorithm;jump;greedy,Python,20,2024-03-13
+snip471,Jump Game Two,algorithm;jump;minimum,C++,19,2024-03-14
+snip472,Trapping Rain Water,algorithm;array;trapping,Java,21,2024-03-15
+snip473,Rotate Array,algorithm;array;rotation,Python,20,2024-03-16
+snip474,Count Smaller Elements,algorithm;array;count,C++,17,2024-03-17
+snip475,Product Array Except Self,algorithm;array;product,Java,19,2024-03-18
+snip476,Majority Element,algorithm;array;majority,Python,18,2024-03-19
+snip477,Majority Element Two,algorithm;array;majority,C++,17,2024-03-20
+snip478,Single Number,algorithm;array;single,Java,20,2024-03-21
+snip479,Single Number Three,algorithm;array;single,Python,19,2024-03-22
+snip480,Missing Number,algorithm;array;missing,C++,18,2024-03-23
+snip481,Find Duplicates,algorithm;array;duplicates,Java,17,2024-03-24
+snip482,Missing Duplicate Number,algorithm;array;missing-duplicate,Python,16,2024-03-25
+snip483,First Missing Positive,algorithm;array;positive,C++,18,2024-03-26
+snip484,Shuffle Array,algorithm;array;shuffle,Java,17,2024-03-27
+snip485,Random Pick Index,algorithm;array;random,Python,16,2024-03-28
+snip486,Kth Largest Element,algorithm;array;kth-largest,C++,19,2024-03-29
+snip487,Kth Smallest Element,algorithm;array;kth-smallest,Java,18,2024-03-30
+snip488,Find Peak Element,algorithm;array;peak,Python,17,2024-03-31
+snip489,Search Rotated Array,algorithm;array;search,C++,20,2024-04-01
+snip490,Search Insert Position,algorithm;array;insert-position,Java,19,2024-04-02
+snip491,Next Permutation,algorithm;array;permutation,Python,18,2024-04-03
+snip492,Previous Permutation,algorithm;array;permutation,C++,17,2024-04-04
+snip493,Majority Voting,algorithm;array;voting,Java,16,2024-04-05
+snip494,Arithmetic Subarrays,algorithm;array;arithmetic,Python,17,2024-04-06
+snip495,Longest Common Prefix,algorithm;string;prefix,C++,18,2024-04-07
+snip496,Two Sum Problem,algorithm;array;two-sum,Java,21,2024-04-08
+snip497,Three Sum Problem,algorithm;array;three-sum,Python,20,2024-04-09
+snip498,Four Sum Problem,algorithm;array;four-sum,C++,19,2024-04-10
+snip499,Count Subarrays,algorithm;array;subarray-count,Java,18,2024-04-11
+snip500,Maximum Subarray Sum,algorithm;array;maximum-subarray,Python,20,2024-04-12
+snip501,Merge Sorted Arrays,algorithm;array;merge,C++,19,2024-04-13
+snip502,Remove Element Value,algorithm;array;remove,Java,18,2024-04-14
+snip503,Remove Nth Element,algorithm;array;remove,Python,17,2024-04-15
+snip504,Reverse Array,algorithm;array;reverse,C++,19,2024-04-16
+snip505,Flatten Nested List,algorithm;list;flatten,Java,18,2024-04-17
+snip506,Min Stack Tracking,data-structure;stack;minimum,Python,20,2024-04-18
+snip507,Largest Rectangle Stack,algorithm;stack;histogram,C++,18,2024-04-19
+snip508,Trapping Rain Water Stack,algorithm;stack;trap,Java,17,2024-04-20
+snip509,Alien Dictionary,algorithm;string;dictionary,Python,15,2024-04-21
+snip510,Word Ladder,algorithm;word;ladder,C++,16,2024-04-22
+snip511,Word Ladder Two,algorithm;word;ladder-path,Java,15,2024-04-23
+snip512,Word Break,algorithm;word;break,Python,17,2024-04-24
+snip513,Word Break Two,algorithm;word;break-list,C++,16,2024-04-25
+snip514,Word Pattern,algorithm;word;pattern,Java,14,2024-04-26
+snip515,Word Search,algorithm;word;search,Python,16,2024-04-27
+snip516,Word Search Two,algorithm;word;search-list,C++,15,2024-04-28
+snip517,Anagram Group,algorithm;string;anagram,Java,17,2024-04-29
+snip518,Isomorphic Strings,algorithm;string;isomorphic,Python,16,2024-04-30
+snip519,Strobogrammatic Number,algorithm;string;strobogrammatic,C++,14,2024-05-01
+snip520,Scramble String,algorithm;string;scramble,Java,15,2024-05-02
