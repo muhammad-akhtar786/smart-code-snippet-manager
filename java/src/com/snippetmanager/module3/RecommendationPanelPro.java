@@ -114,8 +114,8 @@ public class RecommendationPanelPro extends JPanel {
         recommendBtn = new JButton("🔍 GET RECOMMENDATIONS");
         recommendBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
         recommendBtn.setFont(new Font("Arial", Font.BOLD, 14));
-        recommendBtn.setBackground(new Color(0, 102, 204)); // Bright blue
-        recommendBtn.setForeground(Color.WHITE);
+        recommendBtn.setBackground(new Color(220, 20, 60)); // Crimson red - highly visible
+        recommendBtn.setForeground(Color.BLACK);
         recommendBtn.setOpaque(true);
         recommendBtn.setBorder(new RoundBorder(10));
         recommendBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
