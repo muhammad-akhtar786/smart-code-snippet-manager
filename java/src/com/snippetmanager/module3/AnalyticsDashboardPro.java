@@ -12,13 +12,26 @@ public class AnalyticsDashboardPro extends JPanel {
     private JLabel totalTagsLabel;
     private JPanel chartsPanel;
     private JLabel statusLabel;
-    private String dataFilePath = "Data/sample_snippets.csv";
+    private String dataFilePath = "cpp/module3/snippets.json"; // Updated to JSON format
 
     // Helper method to get the executable path
     private String getExecutablePath() {
-        String userDir = System.getProperty("user.dir");
-        String projectRoot = userDir.contains("java") ? userDir.substring(0, userDir.indexOf("java")) : userDir;
-        return new File(projectRoot, "cpp/module3/module3.exe").getAbsolutePath();
+        // Start from project root by finding the smart-code-snippet-manager directory
+        File currentDir = new File(System.getProperty("user.dir"));
+        File projectRoot = currentDir;
+
+        // Walk up directory tree to find smart-code-snippet-manager
+        while (projectRoot != null && !projectRoot.getName().equals("smart-code-snippet-manager")) {
+            projectRoot = projectRoot.getParentFile();
+        }
+
+        // If not found by walking up, try relative path
+        if (projectRoot == null || !projectRoot.exists()) {
+            projectRoot = new File("e:\\DSA\\SmartCode_Snippet_Manager\\smart-code-snippet-manager");
+        }
+
+        File exe = new File(projectRoot, "cpp/module3/module3.exe");
+        return exe.getAbsolutePath();
     }
 
     public AnalyticsDashboardPro() {
@@ -49,7 +62,7 @@ public class AnalyticsDashboardPro extends JPanel {
     private void loadStatistics() {
         new Thread(() -> {
             try {
-                ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "stats", dataFilePath);
+                ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "stats");
                 pb.redirectErrorStream(true);
                 Process process = pb.start();
 
@@ -178,7 +191,7 @@ public class AnalyticsDashboardPro extends JPanel {
 
         try {
             // Execute C++ program to get language distribution
-            ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "lang_dist", dataFilePath);
+            ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "lang_dist");
             pb.redirectErrorStream(true);
             Process process = pb.start();
 
@@ -236,7 +249,7 @@ public class AnalyticsDashboardPro extends JPanel {
         panel.setBackground(Color.WHITE);
 
         try {
-            ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "top_snippets", dataFilePath, "8");
+            ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "top_snippets", "8");
             pb.redirectErrorStream(true);
             Process process = pb.start();
 
@@ -290,7 +303,7 @@ public class AnalyticsDashboardPro extends JPanel {
         panel.setBackground(Color.WHITE);
 
         try {
-            ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "trending_tags", dataFilePath, "10");
+            ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "trending_tags", "10");
             pb.redirectErrorStream(true);
             Process process = pb.start();
 
@@ -347,7 +360,7 @@ public class AnalyticsDashboardPro extends JPanel {
         panel.setBackground(Color.WHITE);
 
         try {
-            ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "trending_snippets", dataFilePath, "8");
+            ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "trending_snippets", "8");
             pb.redirectErrorStream(true);
             Process process = pb.start();
 

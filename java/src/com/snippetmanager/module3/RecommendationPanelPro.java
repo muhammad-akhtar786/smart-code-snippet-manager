@@ -3,7 +3,6 @@ package com.snippetmanager.module3;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -15,13 +14,32 @@ public class RecommendationPanelPro extends JPanel {
     private JButton recommendBtn;
     private JPanel resultsPanel;
     private JLabel statusLabel;
-    private String dataFilePath = "Data/sample_snippets.csv";
+
+    // Code view panel components
+    private JPanel codeViewPanel;
+    private JTextArea codeArea;
+    private JLabel codeInfoLabel;
+    private JButton copyBtn;
+    private RecommendationItem currentSelectedItem;
 
     // Helper method to get the executable path
     private String getExecutablePath() {
-        String userDir = System.getProperty("user.dir");
-        String projectRoot = userDir.contains("java") ? userDir.substring(0, userDir.indexOf("java")) : userDir;
-        return new File(projectRoot, "cpp/module3/module3.exe").getAbsolutePath();
+        // Start from project root by finding the smart-code-snippet-manager directory
+        File currentDir = new File(System.getProperty("user.dir"));
+        File projectRoot = currentDir;
+
+        // Walk up directory tree to find smart-code-snippet-manager
+        while (projectRoot != null && !projectRoot.getName().equals("smart-code-snippet-manager")) {
+            projectRoot = projectRoot.getParentFile();
+        }
+
+        // If not found by walking up, try relative path
+        if (projectRoot == null || !projectRoot.exists()) {
+            projectRoot = new File("e:\\DSA\\SmartCode_Snippet_Manager\\smart-code-snippet-manager");
+        }
+
+        File exe = new File(projectRoot, "cpp/module3/module3.exe");
+        return exe.getAbsolutePath();
     }
 
     public RecommendationPanelPro() {
@@ -33,9 +51,23 @@ public class RecommendationPanelPro extends JPanel {
         JPanel headerPanel = createHeaderPanel();
         add(headerPanel, BorderLayout.NORTH);
 
-        // Input controls
+        // Main content area with split view
+        JSplitPane mainSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        mainSplitPane.setDividerLocation(500);
+        mainSplitPane.setResizeWeight(0.5);
+
+        // Left side - Input controls and recommendations
+        JPanel leftPanel = new JPanel(new BorderLayout(15, 15));
+        leftPanel.setBackground(new Color(245, 245, 245));
+
+        // Input controls with scroll
         JPanel controlPanel = createControlPanel();
-        add(controlPanel, BorderLayout.WEST);
+        JScrollPane controlScrollPane = new JScrollPane(controlPanel);
+        controlScrollPane.setPreferredSize(new Dimension(350, 300));
+        controlScrollPane.setBorder(new TitledBorder(new LineBorder(new Color(100, 149, 237), 2),
+                "🔍 Search & Filter", TitledBorder.LEFT, TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 12)));
+        leftPanel.add(controlScrollPane, BorderLayout.NORTH);
 
         // Results area
         resultsPanel = new JPanel();
@@ -43,13 +75,95 @@ public class RecommendationPanelPro extends JPanel {
         resultsPanel.setBackground(Color.WHITE);
         JScrollPane scrollPane = new JScrollPane(resultsPanel);
         scrollPane.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180), 2),
-                "Recommendations", TitledBorder.LEFT, TitledBorder.TOP,
+                "📋 Recommendations", TitledBorder.LEFT, TitledBorder.TOP,
                 new Font("Arial", Font.BOLD, 12)));
-        add(scrollPane, BorderLayout.CENTER);
+        leftPanel.add(scrollPane, BorderLayout.CENTER);
+
+        mainSplitPane.setLeftComponent(leftPanel);
+
+        // Right side - Code view panel
+        codeViewPanel = createCodeViewPanel();
+        mainSplitPane.setRightComponent(codeViewPanel);
+
+        add(mainSplitPane, BorderLayout.CENTER);
 
         // Status bar
         JPanel statusPanel = createStatusPanel();
         add(statusPanel, BorderLayout.SOUTH);
+    }
+
+    private JPanel createCodeViewPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180), 2),
+                "💻 Code View", TitledBorder.LEFT, TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 12)));
+        panel.setBackground(new Color(245, 245, 245));
+
+        // Info section
+        JPanel infoPanel = new JPanel(new GridLayout(2, 2, 15, 8));
+        infoPanel.setBackground(new Color(240, 248, 255));
+        infoPanel.setBorder(new CompoundBorder(
+                new LineBorder(new Color(70, 130, 180), 1),
+                new EmptyBorder(10, 10, 10, 10)));
+
+        codeInfoLabel = new JLabel("Select a recommendation to view code");
+        codeInfoLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+        codeInfoLabel.setForeground(new Color(100, 100, 100));
+        infoPanel.add(codeInfoLabel);
+
+        panel.add(infoPanel, BorderLayout.NORTH);
+
+        // Code display area
+        codeArea = new JTextArea("// Select a recommendation to view code here");
+        codeArea.setFont(new Font("Courier New", Font.PLAIN, 12));
+        codeArea.setEditable(false);
+        codeArea.setLineWrap(true);
+        codeArea.setWrapStyleWord(true);
+        codeArea.setBackground(new Color(30, 30, 30));
+        codeArea.setForeground(new Color(144, 238, 144)); // Light green for code
+        codeArea.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        JScrollPane codeScrollPane = new JScrollPane(codeArea);
+        codeScrollPane.setBorder(new LineBorder(new Color(100, 100, 100), 1));
+        panel.add(codeScrollPane, BorderLayout.CENTER);
+
+        // Button panel
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        buttonPanel.setBackground(new Color(245, 245, 245));
+
+        copyBtn = new JButton("📋 Copy Code");
+        copyBtn.setEnabled(false);
+        copyBtn.addActionListener(e -> {
+            if (currentSelectedItem != null) {
+                java.awt.datatransfer.StringSelection selection = new java.awt.datatransfer.StringSelection(
+                        currentSelectedItem.code);
+                java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+                JOptionPane.showMessageDialog(panel, "Code copied to clipboard!", "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        buttonPanel.add(copyBtn);
+
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        return panel;
+    }
+
+    private void displayCodeView(RecommendationItem item) {
+        currentSelectedItem = item;
+
+        // Update info label
+        codeInfoLabel.setText(String.format("Algorithm: %s | Tags: %s | Language: %s | Score: %.2f",
+                item.title, item.tags.replace(";", ", "), item.language, item.score));
+
+        // Update code area - properly handle escape sequences
+        String formattedCode = item.code.replace("\\n", "\n").replace("\\t", "\t");
+        codeArea.setText(formattedCode);
+        codeArea.setCaretPosition(0);
+
+        // Enable copy button
+        copyBtn.setEnabled(true);
     }
 
     private JPanel createHeaderPanel() {
@@ -75,47 +189,51 @@ public class RecommendationPanelPro extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(new Color(245, 245, 245));
-        panel.setPreferredSize(new Dimension(300, 0));
+        panel.setBorder(new EmptyBorder(15, 15, 15, 15));
 
         // Tag input
-        JPanel tagPanel = createInputSection("Search by Tag",
+        JPanel tagPanel = createInputSection("🏷️ Search by Tag",
                 "Enter a tag (e.g., 'algorithm', 'sorting')",
                 new Color(70, 130, 180));
         tagInputField = new JTextField(20);
-        tagInputField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
-        tagInputField.setFont(new Font("Arial", Font.PLAIN, 12));
+        tagInputField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        tagInputField.setFont(new Font("Arial", Font.PLAIN, 13));
+        tagInputField.setBorder(new LineBorder(new Color(100, 149, 237), 2));
         tagPanel.add(tagInputField);
         panel.add(tagPanel);
         panel.add(Box.createVerticalStrut(15));
 
         // Language filter
-        JPanel langPanel = createInputSection("Filter by Language",
+        JPanel langPanel = createInputSection("💻 Filter by Language",
                 "Select a programming language",
                 new Color(34, 139, 34));
         languageFilterCombo = new JComboBox<>(new String[] { "All", "C++", "Java", "Python" });
-        languageFilterCombo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
-        languageFilterCombo.setFont(new Font("Arial", Font.PLAIN, 12));
+        languageFilterCombo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        languageFilterCombo.setFont(new Font("Arial", Font.PLAIN, 13));
         langPanel.add(languageFilterCombo);
         panel.add(langPanel);
         panel.add(Box.createVerticalStrut(15));
 
         // Result limit
-        JPanel limitPanel = createInputSection("Result Limit",
-                "Number of recommendations",
+        JPanel limitPanel = createInputSection("📊 Result Limit",
+                "Number of recommendations (1-50)",
                 new Color(178, 34, 34));
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(10, 1, 50, 1);
         resultLimitSpinner = new JSpinner(spinnerModel);
-        resultLimitSpinner.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
+        resultLimitSpinner.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        resultLimitSpinner.setFont(new Font("Arial", Font.PLAIN, 13));
+        JSpinner.NumberEditor editor = new JSpinner.NumberEditor(resultLimitSpinner, "#");
+        resultLimitSpinner.setEditor(editor);
         limitPanel.add(resultLimitSpinner);
         panel.add(limitPanel);
         panel.add(Box.createVerticalStrut(20));
 
         // Get recommendations button
         recommendBtn = new JButton("🔍 GET RECOMMENDATIONS");
-        recommendBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
+        recommendBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         recommendBtn.setFont(new Font("Arial", Font.BOLD, 14));
         recommendBtn.setBackground(new Color(220, 20, 60)); // Crimson red - highly visible
-        recommendBtn.setForeground(Color.BLACK);
+        recommendBtn.setForeground(Color.WHITE);
         recommendBtn.setOpaque(true);
         recommendBtn.setBorder(new RoundBorder(10));
         recommendBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -203,7 +321,7 @@ public class RecommendationPanelPro extends JPanel {
     private List<RecommendationItem> searchTag(String tag, int limit, String language) throws Exception {
         List<RecommendationItem> recommendations = new ArrayList<>();
         ProcessBuilder pb = new ProcessBuilder(getExecutablePath(),
-                "rec_tag", tag, dataFilePath, String.valueOf(limit));
+                "rec_tag", tag, String.valueOf(limit));
         pb.redirectErrorStream(true);
         Process process = pb.start();
 
@@ -216,14 +334,15 @@ public class RecommendationPanelPro extends JPanel {
                 } else if (line.equals("RECOMMENDATIONS_END")) {
                     capturing = false;
                 } else if (capturing) {
-                    String[] parts = line.split("\\|");
-                    if (parts.length >= 4) {
+                    String[] parts = line.split("\\|", 6); // Split into max 6 parts to preserve code with pipes
+                    if (parts.length >= 5) {
                         RecommendationItem item = new RecommendationItem(
                                 parts[0], // id
                                 parts[1], // title
                                 Double.parseDouble(parts[2]), // score
                                 parts[3], // tags
-                                parts.length > 4 ? parts[4] : "Unknown" // language
+                                parts[4], // language
+                                parts.length > 5 ? parts[5] : "" // code
                         );
 
                         // Apply language filter
@@ -243,7 +362,7 @@ public class RecommendationPanelPro extends JPanel {
 
         // Get all top snippets and search through their tags
         ProcessBuilder pb = new ProcessBuilder(getExecutablePath(),
-                "top_snippets", dataFilePath, String.valueOf(limit * 3));
+                "top_snippets", String.valueOf(limit * 3));
         pb.redirectErrorStream(true);
         Process process = pb.start();
 
@@ -256,7 +375,7 @@ public class RecommendationPanelPro extends JPanel {
                 } else if (line.equals("TOP_SNIPPETS_END")) {
                     capturing = false;
                 } else if (capturing) {
-                    String[] parts = line.split("\\|");
+                    String[] parts = line.split("\\|", 6);
                     if (parts.length >= 4) {
                         String tags = parts[3].toLowerCase();
                         // Check if any tag contains or is similar to search term
@@ -268,7 +387,8 @@ public class RecommendationPanelPro extends JPanel {
                                     parts[1], // title
                                     Double.parseDouble(parts[2]), // score
                                     parts[3], // tags
-                                    parts.length > 4 ? parts[4] : "Unknown" // language
+                                    parts.length > 4 ? parts[4] : "Unknown", // language
+                                    parts.length > 5 ? parts[5] : "" // code
                             );
                             if ("All".equals(language) || language.equals(item.language)) {
                                 recommendations.add(item);
@@ -319,6 +439,10 @@ public class RecommendationPanelPro extends JPanel {
                 resultsPanel.add(createRecommendationCard(item, rank++));
                 resultsPanel.add(Box.createVerticalStrut(10));
             }
+            // Automatically display the first recommendation
+            if (!items.isEmpty()) {
+                displayCodeView(items.get(0));
+            }
         }
 
         resultsPanel.revalidate();
@@ -335,6 +459,25 @@ public class RecommendationPanelPro extends JPanel {
                 new EmptyBorder(12, 12, 12, 12)));
         card.setBackground(Color.WHITE);
         card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
+        card.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Add click listener to show code
+        card.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                displayCodeView(item);
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                card.setBackground(new Color(240, 248, 255));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                card.setBackground(Color.WHITE);
+            }
+        });
 
         // Rank and title
         JPanel titlePanel = new JPanel(new BorderLayout());
@@ -395,13 +538,15 @@ public class RecommendationPanelPro extends JPanel {
         double score;
         String tags;
         String language;
+        String code;
 
-        RecommendationItem(String id, String title, double score, String tags, String language) {
+        RecommendationItem(String id, String title, double score, String tags, String language, String code) {
             this.id = id;
             this.title = title;
             this.score = score;
             this.tags = tags;
             this.language = language;
+            this.code = code;
         }
     }
 
@@ -427,6 +572,6 @@ public class RecommendationPanelPro extends JPanel {
     }
 
     public void setDataFilePath(String path) {
-        this.dataFilePath = path;
+        // Data file path setting - can be extended for future use
     }
 }

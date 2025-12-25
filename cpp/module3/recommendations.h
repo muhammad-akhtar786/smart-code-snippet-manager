@@ -9,6 +9,9 @@
 
 using namespace std;
 
+// Helper function declaration
+string toLowercase(const string &str);
+
 // Level-1 DSA: HashMap for snippet metadata and analytics
 struct SnippetMetadata
 {
@@ -16,6 +19,7 @@ struct SnippetMetadata
     string title;
     vector<string> tags;
     string language;
+    string code;
     int usageCount;
     string lastModified;
 };

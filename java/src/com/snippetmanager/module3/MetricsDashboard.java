@@ -11,9 +11,22 @@ public class MetricsDashboard extends JPanel {
 
     // Helper method to get the executable path
     private String getExecutablePath() {
-        String userDir = System.getProperty("user.dir");
-        String projectRoot = userDir.contains("java") ? userDir.substring(0, userDir.indexOf("java")) : userDir;
-        return new File(projectRoot, "cpp/module3/module3.exe").getAbsolutePath();
+        // Start from project root by finding the smart-code-snippet-manager directory
+        File currentDir = new File(System.getProperty("user.dir"));
+        File projectRoot = currentDir;
+
+        // Walk up directory tree to find smart-code-snippet-manager
+        while (projectRoot != null && !projectRoot.getName().equals("smart-code-snippet-manager")) {
+            projectRoot = projectRoot.getParentFile();
+        }
+
+        // If not found by walking up, try relative path
+        if (projectRoot == null || !projectRoot.exists()) {
+            projectRoot = new File("e:\\DSA\\SmartCode_Snippet_Manager\\smart-code-snippet-manager");
+        }
+
+        File exe = new File(projectRoot, "cpp/module3/module3.exe");
+        return exe.getAbsolutePath();
     }
 
     public MetricsDashboard() {
@@ -92,7 +105,7 @@ public class MetricsDashboard extends JPanel {
     private void loadMetrics() {
         new Thread(() -> {
             try {
-                ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "metrics", dataFilePath);
+                ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "metrics");
                 pb.redirectErrorStream(true);
                 Process process = pb.start();
 

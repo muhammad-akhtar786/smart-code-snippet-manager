@@ -18,9 +18,22 @@ public class TagVisualization extends JPanel {
 
     // Helper method to get the executable path
     private String getExecutablePath() {
-        String userDir = System.getProperty("user.dir");
-        String projectRoot = userDir.contains("java") ? userDir.substring(0, userDir.indexOf("java")) : userDir;
-        return new File(projectRoot, "cpp/module3/module3.exe").getAbsolutePath();
+        // Start from project root by finding the smart-code-snippet-manager directory
+        File currentDir = new File(System.getProperty("user.dir"));
+        File projectRoot = currentDir;
+
+        // Walk up directory tree to find smart-code-snippet-manager
+        while (projectRoot != null && !projectRoot.getName().equals("smart-code-snippet-manager")) {
+            projectRoot = projectRoot.getParentFile();
+        }
+
+        // If not found by walking up, try relative path
+        if (projectRoot == null || !projectRoot.exists()) {
+            projectRoot = new File("e:\\DSA\\SmartCode_Snippet_Manager\\smart-code-snippet-manager");
+        }
+
+        File exe = new File(projectRoot, "cpp/module3/module3.exe");
+        return exe.getAbsolutePath();
     }
 
     public TagVisualization() {
@@ -167,7 +180,7 @@ public class TagVisualization extends JPanel {
     }
 
     private List<String[]> getTagCooccurrence(String tag) throws Exception {
-        ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "tag_cooccur", tag, dataFilePath);
+        ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "tag_cooccur", tag);
         pb.redirectErrorStream(true);
         Process process = pb.start();
 
@@ -195,7 +208,7 @@ public class TagVisualization extends JPanel {
     }
 
     private Map<String, Integer> getTrendingTags(int n) throws Exception {
-        ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "trending_tags", dataFilePath,
+        ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "trending_tags",
                 String.valueOf(n));
         pb.redirectErrorStream(true);
         Process process = pb.start();

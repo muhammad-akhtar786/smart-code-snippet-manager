@@ -12,7 +12,7 @@ public class Module3MainWindow extends JFrame {
 
     public Module3MainWindow() {
         setTitle("Smart Code Snippet Manager - Module 3: Recommendations & Analytics [Professional Edition]");
-        setSize(1400, 800);
+        setSize(1600, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 

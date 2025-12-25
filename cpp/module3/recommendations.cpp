@@ -7,52 +7,130 @@
 
 bool RecommendationEngine::loadSnippetsFromFile(const string &filename)
 {
+    // Load snippets from JSON file (key-value format)
     ifstream file(filename);
     if (!file.is_open())
     {
-        cerr << "Error: Cannot open file " << filename << endl;
+        cerr << "Error opening file: " << filename << endl;
         return false;
     }
 
+    string jsonContent;
     string line;
-    getline(file, line); // Skip header
-
     while (getline(file, line))
     {
-        stringstream ss(line);
-        SnippetMetadata snippet;
+        jsonContent += line + "\n";
+    }
+    file.close();
 
-        getline(ss, snippet.id, ',');
-        getline(ss, snippet.title, ',');
+    // Parse key-value pairs from JSON
+    int snippetCount = 0;
+    size_t pos = jsonContent.find("{");
+    if (pos == string::npos)
+        return false;
 
-        string tagsStr;
-        getline(ss, tagsStr, ',');
+    pos++;
 
-        // Parse tags (assuming semicolon-separated)
-        stringstream tagStream(tagsStr);
-        string tag;
-        while (getline(tagStream, tag, ';'))
+    while (pos < jsonContent.length())
+    {
+        // Find next quote (key start)
+        pos = jsonContent.find("\"", pos);
+        if (pos == string::npos || jsonContent[pos] == '}')
+            break;
+
+        pos++;
+        size_t keyEnd = jsonContent.find("\"", pos);
+        if (keyEnd == string::npos)
+            break;
+
+        string key = jsonContent.substr(pos, keyEnd - pos);
+        pos = keyEnd + 1;
+
+        // Skip to colon
+        pos = jsonContent.find(":", pos);
+        if (pos == string::npos)
+            break;
+        pos++;
+
+        // Skip whitespace
+        while (pos < jsonContent.length() && (jsonContent[pos] == ' ' || jsonContent[pos] == '\t' || jsonContent[pos] == '\n'))
+            pos++;
+
+        // Should find opening quote for value
+        if (pos >= jsonContent.length() || jsonContent[pos] != '"')
+            break;
+
+        pos++; // skip opening quote
+
+        // Find closing quote (handle escaped quotes)
+        size_t valueStart = pos;
+        while (pos < jsonContent.length())
         {
-            if (!tag.empty())
+            if (jsonContent[pos] == '\\' && pos + 1 < jsonContent.length())
             {
-                // Normalize tag to lowercase for case-insensitive search
-                string normalizedTag = toLowercase(tag);
-                snippet.tags.push_back(normalizedTag);
+                pos += 2;
+            }
+            else if (jsonContent[pos] == '"')
+            {
+                break;
+            }
+            else
+            {
+                pos++;
             }
         }
 
-        getline(ss, snippet.language, ',');
+        if (pos >= jsonContent.length())
+            break;
 
-        string usageStr;
-        getline(ss, usageStr, ',');
-        snippet.usageCount = usageStr.empty() ? 0 : stoi(usageStr);
+        string value = jsonContent.substr(valueStart, pos - valueStart);
+        pos++;
 
-        getline(ss, snippet.lastModified, ',');
+        // Create snippet
+        SnippetMetadata snippet;
+        snippet.id = key;
+        snippet.title = key;
+        snippet.language = "C++";
+        snippet.code = value; // Store the actual code
+        snippet.usageCount = 0;
+        snippet.lastModified = "2024-12-25";
+
+        // Auto-generate tags based on key
+        string normalizedTitle = toLowercase(key);
+        snippet.tags.push_back(normalizedTitle);
+
+        // Add category tags
+        if (normalizedTitle.find("sort") != string::npos)
+            snippet.tags.push_back("sorting");
+        if (normalizedTitle.find("search") != string::npos)
+            snippet.tags.push_back("search");
+        if (normalizedTitle.find("tree") != string::npos)
+            snippet.tags.push_back("tree");
+        if (normalizedTitle.find("graph") != string::npos || normalizedTitle.find("dfs") != string::npos || normalizedTitle.find("bfs") != string::npos)
+            snippet.tags.push_back("graph");
+        if (normalizedTitle.find("knapsack") != string::npos || normalizedTitle.find("fibonacci") != string::npos ||
+            normalizedTitle.find("lcs") != string::npos || normalizedTitle.find("edit") != string::npos)
+            snippet.tags.push_back("dynamic programming");
+        if (normalizedTitle.find("gcd") != string::npos || normalizedTitle.find("lcm") != string::npos ||
+            normalizedTitle.find("factorial") != string::npos)
+            snippet.tags.push_back("mathematics");
+        if (normalizedTitle.find("permutation") != string::npos || normalizedTitle.find("combination") != string::npos ||
+            normalizedTitle.find("queens") != string::npos)
+            snippet.tags.push_back("backtracking");
+        if (normalizedTitle.find("traversal") != string::npos || normalizedTitle.find("inorder") != string::npos ||
+            normalizedTitle.find("preorder") != string::npos || normalizedTitle.find("postorder") != string::npos)
+            snippet.tags.push_back("traversal");
+        if (normalizedTitle.find("sum") != string::npos || normalizedTitle.find("two") != string::npos)
+            snippet.tags.push_back("array");
+
+        snippet.tags.push_back("algorithm");
+        snippet.tags.push_back("dsa");
 
         addSnippet(snippet);
+        snippetCount++;
     }
 
-    file.close();
+    cout << "Successfully loaded " << snippetCount << " snippets from " << filename << endl;
     return true;
 }
 
@@ -88,8 +166,42 @@ vector<pair<string, double>> RecommendationEngine::getRecommendationsByTag(const
     // Convert tag to lowercase for case-insensitive search
     string normalizedTag = toLowercase(tag);
 
-    // Get related tags using BFS/DFS
+    // FIRST: Try exact match
     auto relatedTags = tagGraph.findRelatedTags(normalizedTag, limit * 2);
+
+    // SECOND: If no exact match, find tags containing the search term (substring match)
+    if (relatedTags.empty())
+    {
+        // Find all tags that CONTAIN the search term
+        vector<pair<string, int>> matchingTags;
+        vector<string> allTags = tagGraph.getAllTags();
+
+        for (const string &graphTag : allTags)
+        {
+            if (graphTag.find(normalizedTag) != string::npos ||
+                normalizedTag.find(graphTag) != string::npos) // Also match if search term contains tag
+            {
+                int freq = tagGraph.getTagFrequency(graphTag);
+                matchingTags.push_back({graphTag, freq});
+            }
+        }
+
+        // Sort by frequency
+        sort(matchingTags.begin(), matchingTags.end(),
+             [](const pair<string, int> &a, const pair<string, int> &b)
+             {
+                 return a.second > b.second;
+             });
+
+        // Convert to double scores
+        if (!matchingTags.empty())
+        {
+            for (const auto &p : matchingTags)
+            {
+                relatedTags.push_back({p.first, (double)p.second});
+            }
+        }
+    }
 
     // Get snippets for related tags
     unordered_map<string, double> snippetScores;
