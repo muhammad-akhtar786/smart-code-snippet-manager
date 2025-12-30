@@ -1,146 +1,298 @@
 package com.snippetmanager.module3;
 
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 
 public class MetricsDashboard extends JPanel {
-    private String dataFilePath = "Data/sample_snippets.csv";
-    private JLabel[] metricValues = new JLabel[4];
+    // --- Modern Color Palette (Synced with Module 1) ---
+    private static final Color BG_LIGHT = new Color(248, 249, 252);
+    private static final Color CARD_WHITE = Color.WHITE;
+    private static final Color ACCENT_BLUE = new Color(37, 99, 235);
+    private static final Color ACCENT_GREEN = new Color(16, 185, 129);
+    private static final Color ACCENT_PURPLE = new Color(139, 92, 246);
+    private static final Color ACCENT_ORANGE = new Color(245, 158, 11);
+    private static final Color TEXT_MAIN = new Color(30, 41, 59);
+    private static final Color TEXT_SECONDARY = new Color(100, 116, 139);
+    private static final Color BORDER_COLOR = new Color(226, 232, 240);
+    private static final Color STATUS_BG = new Color(15, 23, 42);
 
-    // Helper method to get the executable path
-    private String getExecutablePath() {
-        // Start from project root by finding the smart-code-snippet-manager directory
-        File currentDir = new File(System.getProperty("user.dir"));
-        File projectRoot = currentDir;
-
-        // Walk up directory tree to find smart-code-snippet-manager
-        while (projectRoot != null && !projectRoot.getName().equals("smart-code-snippet-manager")) {
-            projectRoot = projectRoot.getParentFile();
-        }
-
-        // If not found by walking up, try relative path
-        if (projectRoot == null || !projectRoot.exists()) {
-            projectRoot = new File("e:\\DSA\\SmartCode_Snippet_Manager\\smart-code-snippet-manager");
-        }
-
-        File exe = new File(projectRoot, "cpp/module3/module3.exe");
-        return exe.getAbsolutePath();
-    }
+    private MetricCard[] metricCards = new MetricCard[4];
+    private JLabel statusLabel;
 
     public MetricsDashboard() {
-        setLayout(new BorderLayout(15, 15));
-        setBorder(new EmptyBorder(20, 20, 20, 20));
-        setBackground(new Color(245, 245, 245));
+        setLayout(new BorderLayout(0, 0));
+        setBackground(BG_LIGHT);
 
-        // Header
-        JPanel headerPanel = createHeaderPanel();
-        add(headerPanel, BorderLayout.NORTH);
+        // Header Section
+        add(createHeader(), BorderLayout.NORTH);
 
-        // Metrics area
-        JPanel metricsPanel = new JPanel(new GridLayout(2, 2, 20, 20));
-        metricsPanel.setBackground(new Color(245, 245, 245));
+        // Main Grid Panel
+        JPanel mainWrapper = new JPanel(new BorderLayout());
+        mainWrapper.setOpaque(false);
+        mainWrapper.setBorder(new EmptyBorder(30, 40, 30, 40));
 
-        metricValues[0] = new JLabel("0");
-        metricValues[1] = new JLabel("0");
-        metricValues[2] = new JLabel("0%");
-        metricValues[3] = new JLabel("0%");
+        JPanel metricsGrid = new JPanel(new GridLayout(2, 2, 25, 25));
+        metricsGrid.setOpaque(false);
 
-        metricsPanel.add(createMetricCard("Total Recommendations", metricValues[0], new Color(70, 130, 180)));
-        metricsPanel.add(createMetricCard("Clicked", metricValues[1], new Color(34, 139, 34)));
-        metricsPanel.add(createMetricCard("Accuracy", metricValues[2], new Color(178, 34, 34)));
-        metricsPanel.add(createMetricCard("Coverage", metricValues[3], new Color(255, 140, 0)));
+        // Initialize Cards with modern colors
+        metricCards[0] = new MetricCard("Total Recommendations", "0", "recommendations made", ACCENT_BLUE);
+        metricCards[1] = new MetricCard("Clicked Recommendations", "0", "user interactions", ACCENT_GREEN);
+        metricCards[2] = new MetricCard("Recommendation Accuracy", "0%", "success rate", ACCENT_PURPLE);
+        metricCards[3] = new MetricCard("Snippet Coverage", "0%", "overall coverage", ACCENT_ORANGE);
 
-        add(metricsPanel, BorderLayout.CENTER);
+        for (MetricCard card : metricCards)
+            metricsGrid.add(card);
+
+        mainWrapper.add(metricsGrid, BorderLayout.CENTER);
+
+        // Info Banner at bottom of grid
+        mainWrapper.add(createInfoBanner(), BorderLayout.SOUTH);
+
+        add(mainWrapper, BorderLayout.CENTER);
+
+        // Status Bar
+        add(createStatusBar(), BorderLayout.SOUTH);
 
         loadMetrics();
     }
 
-    private JPanel createHeaderPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(240, 248, 255));
-        panel.setBorder(new LineBorder(new Color(70, 130, 180), 2, true));
-        panel.setPreferredSize(new Dimension(0, 80));
+    private JPanel createHeader() {
+        JPanel header = new JPanel(new BorderLayout());
+        header.setBackground(CARD_WHITE);
+        header.setPreferredSize(new Dimension(0, 90));
+        header.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, BORDER_COLOR));
 
-        JLabel headerLabel = new JLabel("📈 Recommendation Quality Metrics");
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        headerLabel.setForeground(new Color(25, 25, 112));
+        JPanel leftPanel = new JPanel(new GridLayout(2, 1, 0, 5));
+        leftPanel.setOpaque(false);
+        leftPanel.setBorder(new EmptyBorder(20, 40, 0, 0));
 
-        JLabel descLabel = new JLabel("System performance and recommendation quality indicators");
-        descLabel.setFont(new Font("Arial", Font.ITALIC, 11));
-        descLabel.setForeground(new Color(100, 100, 100));
+        JLabel title = new JLabel("Analytics Dashboard");
+        title.setFont(new Font("Inter", Font.BOLD, 22));
+        title.setForeground(TEXT_MAIN);
 
-        JPanel textPanel = new JPanel(new BorderLayout());
-        textPanel.setOpaque(false);
-        textPanel.add(headerLabel, BorderLayout.NORTH);
-        textPanel.add(descLabel, BorderLayout.SOUTH);
+        JLabel subtitle = new JLabel("Real-time performance indicators for the recommendation engine");
+        subtitle.setFont(new Font("Inter", Font.PLAIN, 13));
+        subtitle.setForeground(TEXT_SECONDARY);
 
-        panel.add(textPanel, BorderLayout.WEST);
+        leftPanel.add(title);
+        leftPanel.add(subtitle);
 
-        return panel;
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 25));
+        rightPanel.setOpaque(false);
+        rightPanel.setBorder(new EmptyBorder(0, 0, 0, 40));
+
+        ModernButton refreshBtn = new ModernButton("Refresh Data", ACCENT_BLUE);
+        refreshBtn.setPreferredSize(new Dimension(140, 40));
+        refreshBtn.addActionListener(e -> loadMetrics());
+
+        rightPanel.add(refreshBtn);
+
+        header.add(leftPanel, BorderLayout.WEST);
+        header.add(rightPanel, BorderLayout.EAST);
+        return header;
     }
 
-    private JPanel createMetricCard(String label, JLabel valueLabel, Color color) {
-        JPanel card = new JPanel(new BorderLayout(10, 10));
-        card.setBorder(new CompoundBorder(
-                new LineBorder(color, 3),
-                new EmptyBorder(20, 20, 20, 20)));
-        card.setBackground(Color.WHITE);
+    private JPanel createInfoBanner() {
+        ModernCard banner = new ModernCard();
+        banner.setLayout(new BorderLayout(20, 0));
+        banner.setBorder(new EmptyBorder(15, 25, 15, 25));
+        banner.setBackground(new Color(239, 246, 255)); // Soft blue tint
 
-        JLabel labelText = new JLabel(label);
-        labelText.setFont(new Font("Arial", Font.PLAIN, 12));
-        labelText.setForeground(new Color(100, 100, 100));
+        JLabel infoText = new JLabel(
+                "<html><b>Pro Tip:</b> Accuracy and Coverage metrics are calculated based on the last 100 user queries. Higher coverage leads to better snippet discoverability.</html>");
+        infoText.setFont(new Font("Inter", Font.PLAIN, 12));
+        infoText.setForeground(new Color(30, 64, 175));
 
-        valueLabel.setFont(new Font("Arial", Font.BOLD, 48));
-        valueLabel.setForeground(color);
-        valueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        banner.add(new JLabel("💡"), BorderLayout.WEST);
+        banner.add(infoText, BorderLayout.CENTER);
 
-        card.add(labelText, BorderLayout.NORTH);
-        card.add(valueLabel, BorderLayout.CENTER);
+        JPanel wrapper = new JPanel(new BorderLayout());
+        wrapper.setOpaque(false);
+        wrapper.setBorder(new EmptyBorder(30, 0, 0, 0));
+        wrapper.add(banner, BorderLayout.CENTER);
+        return wrapper;
+    }
 
-        return card;
+    private JPanel createStatusBar() {
+        JPanel bar = new JPanel(new BorderLayout());
+        bar.setBackground(STATUS_BG);
+        bar.setPreferredSize(new Dimension(0, 35));
+        bar.setBorder(new EmptyBorder(0, 40, 0, 40));
+
+        statusLabel = new JLabel("System Ready");
+        statusLabel.setFont(new Font("Inter", Font.PLAIN, 11));
+        statusLabel.setForeground(new Color(148, 163, 184));
+
+        bar.add(statusLabel, BorderLayout.WEST);
+        return bar;
+    }
+
+    // --- Backend Integration (Unchanged Logic) ---
+
+    private String getExecutablePath() {
+        File currentDir = new File(System.getProperty("user.dir"));
+        File projectRoot = currentDir;
+        while (projectRoot != null && !projectRoot.getName().equals("smart-code-snippet-manager")) {
+            projectRoot = projectRoot.getParentFile();
+        }
+        if (projectRoot == null || !projectRoot.exists()) {
+            projectRoot = new File("e:\\DSA\\smart-code-snippet-manager");
+        }
+        return new File(projectRoot, "cpp/module3/app.exe").getAbsolutePath();
+    }
+
+    private File getDataDirectory() {
+        File currentDir = new File(System.getProperty("user.dir"));
+        File projectRoot = currentDir;
+        while (projectRoot != null && !projectRoot.getName().equals("smart-code-snippet-manager")) {
+            projectRoot = projectRoot.getParentFile();
+        }
+        if (projectRoot == null || !projectRoot.exists()) {
+            projectRoot = new File("e:\\DSA\\smart-code-snippet-manager");
+        }
+        return new File(projectRoot, "Data");
     }
 
     private void loadMetrics() {
+        statusLabel.setText("🔄 Synchronizing metrics with backend...");
+        for (MetricCard card : metricCards)
+            card.startLoading();
+
         new Thread(() -> {
             try {
                 ProcessBuilder pb = new ProcessBuilder(getExecutablePath(), "metrics");
+                pb.directory(getDataDirectory());
                 pb.redirectErrorStream(true);
                 Process process = pb.start();
 
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        // FIX: Parse pipe-separated format from C++ backend
-                        if (line.contains("total_recommendations|")) {
-                            String value = line.split("\\|")[1].trim();
-                            updateMetricCard(0, value);
-                        } else if (line.contains("clicked_count|")) {
-                            String value = line.split("\\|")[1].trim();
-                            updateMetricCard(1, value);
-                        } else if (line.contains("accuracy|")) {
-                            String value = line.split("\\|")[1].trim();
-                            updateMetricCard(2, value);
-                        } else if (line.contains("coverage|")) {
-                            String value = line.split("\\|")[1].trim();
-                            updateMetricCard(3, value);
-                        }
+                        if (line.contains("total_recommendations|"))
+                            updateCard(0, line.split("\\|")[1], false);
+                        else if (line.contains("clicked_count|"))
+                            updateCard(1, line.split("\\|")[1], false);
+                        else if (line.contains("accuracy|"))
+                            updateCard(2, line.split("\\|")[1], true);
+                        else if (line.contains("coverage|"))
+                            updateCard(3, line.split("\\|")[1], true);
                     }
                 }
                 process.waitFor();
-
+                SwingUtilities.invokeLater(
+                        () -> statusLabel.setText("✓ Data synchronized at " + new java.util.Date().toString()));
             } catch (Exception e) {
-                e.printStackTrace(); // Show errors for debugging
+                SwingUtilities.invokeLater(() -> statusLabel.setText("✗ Backend Error: " + e.getMessage()));
             }
         }).start();
     }
 
-    private void updateMetricCard(int index, String value) {
-        SwingUtilities.invokeLater(() -> {
-            if (index < metricValues.length) {
-                metricValues[index].setText(value);
-            }
-        });
+    private void updateCard(int index, String value, boolean isPct) {
+        String val = isPct && !value.endsWith("%") ? value + "%" : value;
+        SwingUtilities.invokeLater(() -> metricCards[index].setValue(val.trim()));
+    }
+
+    // --- UI Custom Components ---
+
+    static class ModernCard extends JPanel {
+        public ModernCard() {
+            setOpaque(false);
+            setBackground(CARD_WHITE);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(getBackground());
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), 16, 16);
+            g2.setColor(BORDER_COLOR);
+            g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 16, 16);
+            g2.dispose();
+        }
+    }
+
+    private static class MetricCard extends ModernCard {
+        private JLabel valLabel;
+        private Color accent;
+
+        public MetricCard(String title, String initialVal, String subtitle, Color accent) {
+            this.accent = accent;
+            setLayout(new BorderLayout());
+            setBorder(new EmptyBorder(25, 25, 25, 25));
+
+            JLabel tLabel = new JLabel(title.toUpperCase());
+            tLabel.setFont(new Font("Inter", Font.BOLD, 12));
+            tLabel.setForeground(TEXT_SECONDARY);
+
+            valLabel = new JLabel(initialVal);
+            valLabel.setFont(new Font("Inter", Font.BOLD, 42));
+            valLabel.setForeground(TEXT_MAIN);
+
+            JLabel sLabel = new JLabel(subtitle);
+            sLabel.setFont(new Font("Inter", Font.PLAIN, 12));
+            sLabel.setForeground(TEXT_SECONDARY);
+
+            // Left accent line
+            JPanel accentBar = new JPanel();
+            accentBar.setBackground(accent);
+            accentBar.setPreferredSize(new Dimension(4, 0));
+
+            JPanel content = new JPanel(new GridLayout(3, 1, 0, 5));
+            content.setOpaque(false);
+            content.add(tLabel);
+            content.add(valLabel);
+            content.add(sLabel);
+
+            add(content, BorderLayout.CENTER);
+
+            addMouseListener(new MouseAdapter() {
+                public void mouseEntered(MouseEvent e) {
+                    setBackground(new Color(252, 253, 255));
+                }
+
+                public void mouseExited(MouseEvent e) {
+                    setBackground(CARD_WHITE);
+                }
+            });
+        }
+
+        public void setValue(String val) {
+            valLabel.setText(val);
+            valLabel.setForeground(accent);
+        }
+
+        public void startLoading() {
+            valLabel.setText("...");
+            valLabel.setForeground(TEXT_SECONDARY);
+        }
+    }
+
+    static class ModernButton extends JButton {
+        private Color color;
+
+        public ModernButton(String text, Color color) {
+            super(text);
+            this.color = color;
+            setContentAreaFilled(false);
+            setBorderPainted(false);
+            setForeground(Color.WHITE);
+            setFont(new Font("Inter", Font.BOLD, 13));
+            setCursor(new Cursor(Cursor.HAND_CURSOR));
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(getModel().isPressed() ? color.darker() : color);
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
+            super.paintComponent(g);
+            g2.dispose();
+        }
     }
 }

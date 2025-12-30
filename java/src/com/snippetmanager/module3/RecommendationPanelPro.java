@@ -22,63 +22,67 @@ public class RecommendationPanelPro extends JPanel {
     private JButton copyBtn;
     private RecommendationItem currentSelectedItem;
 
+    // Modern Color Scheme
+    private static final Color PRIMARY_BLUE = new Color(66, 133, 244);
+    private static final Color CARD_BG = Color.WHITE;
+    private static final Color TEXT_DARK = new Color(33, 37, 41);
+    private static final Color TEXT_LIGHT = Color.WHITE;
+    private static final Color TEXT_MUTED = new Color(108, 117, 125);
+    private static final Color CONTENT_BG = new Color(248, 249, 250);
+    private static final Color CONSOLE_BG = new Color(30, 33, 36);
+    private static final Color CONSOLE_TEXT = new Color(171, 178, 191);
+    private static final Color BUTTON_GREEN = new Color(40, 167, 69);
+    private static final Color BUTTON_ORANGE = new Color(255, 152, 0);
+    private static final Color ACCENT_BLUE = new Color(52, 152, 219);
+    private static final Color BORDER_LIGHT = new Color(222, 226, 230);
+    private static final Color HOVER_BG = new Color(232, 240, 254);
+
     // Helper method to get the executable path
     private String getExecutablePath() {
-        // Start from project root by finding the smart-code-snippet-manager directory
         File currentDir = new File(System.getProperty("user.dir"));
         File projectRoot = currentDir;
 
-        // Walk up directory tree to find smart-code-snippet-manager
         while (projectRoot != null && !projectRoot.getName().equals("smart-code-snippet-manager")) {
             projectRoot = projectRoot.getParentFile();
         }
 
-        // If not found by walking up, try relative path
         if (projectRoot == null || !projectRoot.exists()) {
-            projectRoot = new File("e:\\DSA\\SmartCode_Snippet_Manager\\smart-code-snippet-manager");
+            projectRoot = new File("e:\\DSA\\smart-code-snippet-manager");
         }
 
-        File exe = new File(projectRoot, "cpp/module3/module3.exe");
+        File exe = new File(projectRoot, "cpp/module3/app.exe");
         return exe.getAbsolutePath();
     }
 
+    private File getDataDirectory() {
+        File currentDir = new File(System.getProperty("user.dir"));
+        File projectRoot = currentDir;
+
+        while (projectRoot != null && !projectRoot.getName().equals("smart-code-snippet-manager")) {
+            projectRoot = projectRoot.getParentFile();
+        }
+
+        if (projectRoot == null || !projectRoot.exists()) {
+            projectRoot = new File("e:\\DSA\\smart-code-snippet-manager");
+        }
+
+        return new File(projectRoot, "Data");
+    }
+
     public RecommendationPanelPro() {
-        setLayout(new BorderLayout(15, 15));
-        setBorder(new EmptyBorder(20, 20, 20, 20));
-        setBackground(new Color(245, 245, 245));
+        setLayout(new BorderLayout(0, 0));
+        setBackground(CONTENT_BG);
+        setPreferredSize(new Dimension(1400, 900));
 
-        // Header
-        JPanel headerPanel = createHeaderPanel();
-        add(headerPanel, BorderLayout.NORTH);
-
-        // Main content area with split view
+        // Main content with split view
         JSplitPane mainSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        mainSplitPane.setDividerLocation(500);
-        mainSplitPane.setResizeWeight(0.5);
+        mainSplitPane.setDividerLocation(750);
+        mainSplitPane.setResizeWeight(0.60);
+        mainSplitPane.setBorder(BorderFactory.createEmptyBorder());
+        mainSplitPane.setBackground(CONTENT_BG);
 
         // Left side - Input controls and recommendations
-        JPanel leftPanel = new JPanel(new BorderLayout(15, 15));
-        leftPanel.setBackground(new Color(245, 245, 245));
-
-        // Input controls with scroll
-        JPanel controlPanel = createControlPanel();
-        JScrollPane controlScrollPane = new JScrollPane(controlPanel);
-        controlScrollPane.setPreferredSize(new Dimension(350, 300));
-        controlScrollPane.setBorder(new TitledBorder(new LineBorder(new Color(100, 149, 237), 2),
-                "🔍 Search & Filter", TitledBorder.LEFT, TitledBorder.TOP,
-                new Font("Arial", Font.BOLD, 12)));
-        leftPanel.add(controlScrollPane, BorderLayout.NORTH);
-
-        // Results area
-        resultsPanel = new JPanel();
-        resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.Y_AXIS));
-        resultsPanel.setBackground(Color.WHITE);
-        JScrollPane scrollPane = new JScrollPane(resultsPanel);
-        scrollPane.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180), 2),
-                "📋 Recommendations", TitledBorder.LEFT, TitledBorder.TOP,
-                new Font("Arial", Font.BOLD, 12)));
-        leftPanel.add(scrollPane, BorderLayout.CENTER);
-
+        JPanel leftPanel = createLeftPanel();
         mainSplitPane.setLeftComponent(leftPanel);
 
         // Right side - Code view panel
@@ -92,46 +96,213 @@ public class RecommendationPanelPro extends JPanel {
         add(statusPanel, BorderLayout.SOUTH);
     }
 
+    private JPanel createLeftPanel() {
+    JPanel panel = new JPanel(new BorderLayout(20, 20));  // Increased spacing between components in the left panel
+    panel.setBackground(CONTENT_BG);
+    panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25)); // Increased outer padding to make the left panel bigger
+
+    // Control Panel Card
+    JPanel controlCard = createControlPanel();
+    panel.add(controlCard, BorderLayout.NORTH);
+
+    // Results area
+    resultsPanel = new JPanel();
+    resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.Y_AXIS));
+    resultsPanel.setBackground(CONTENT_BG);
+
+    // Wrap resultsPanel in a container that forces it to start from the top
+    JPanel scrollContainer = new JPanel(new BorderLayout());
+    scrollContainer.setBackground(CONTENT_BG);
+    scrollContainer.add(resultsPanel, BorderLayout.NORTH);
+
+    JScrollPane scrollPane = new JScrollPane(scrollContainer);
+    scrollPane.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createTitledBorder(
+                    BorderFactory.createLineBorder(BORDER_LIGHT, 1),
+                    "📋 Recommendations",
+                    TitledBorder.LEFT,
+                    TitledBorder.TOP,
+                    new Font("Segoe UI", Font.BOLD, 13),  // Reduced font size for the title
+                    TEXT_DARK),
+            BorderFactory.createEmptyBorder(8, 8, 8, 8)));  // Reduced padding around the scroll pane
+
+    // Ensure the scrollbar is always available and smooth
+    scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+    scrollPane.setBackground(CONTENT_BG);
+    scrollPane.getViewport().setBackground(CONTENT_BG);
+    scrollPane.setPreferredSize(new Dimension(0, 1200));  // Reduced the height to make the box smaller
+    scrollPane.setMinimumSize(new Dimension(0, 1100));  // Reduced minimum height
+
+    panel.add(scrollPane, BorderLayout.CENTER);
+
+    return panel;
+}
+
+
+    private JPanel createControlPanel() {
+    JPanel card = new JPanel(new BorderLayout(5, 5)); // Reduced border gap
+    card.setBackground(CARD_BG);
+    card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(BORDER_LIGHT, 1),
+            BorderFactory.createEmptyBorder(10, 10, 10, 10))); // Reduced padding
+
+    // Header
+    JLabel header = new JLabel("🎯 Smart Recommendation Engine");
+    header.setFont(new Font("Segoe UI", Font.BOLD, 16)); // Reduced font size
+    header.setForeground(TEXT_DARK);
+
+    JLabel subtitle = new JLabel("Find related snippets based on tags using graph algorithms");
+    subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 11)); // Reduced font size
+    subtitle.setForeground(TEXT_MUTED);
+    subtitle.setBorder(BorderFactory.createEmptyBorder(3, 0, 5, 0)); // Reduced bottom margin
+
+    JPanel headerPanel = new JPanel(new BorderLayout());
+    headerPanel.setOpaque(false);
+    headerPanel.add(header, BorderLayout.NORTH);
+    headerPanel.add(subtitle, BorderLayout.SOUTH);
+
+    // Form Panel
+    JPanel formPanel = new JPanel(new GridBagLayout());
+    formPanel.setBackground(CARD_BG);
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(6, 3, 6, 3); // Reduced insets
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.anchor = GridBagConstraints.WEST;
+
+    // Tag Input
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 0;
+    JLabel tagLabel = new JLabel("🏷️ Search by Tag");
+    tagLabel.setFont(new Font("Segoe UI", Font.BOLD, 10)); // Reduced font size
+    formPanel.add(tagLabel, gbc);
+
+    gbc.gridx = 1;
+    gbc.weightx = 1.0;
+    tagInputField = new JTextField();
+    tagInputField.setPreferredSize(new Dimension(0, 25)); // Reduced height
+    tagInputField.setFont(new Font("Segoe UI", Font.PLAIN, 12)); // Reduced font size
+    tagInputField.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(BORDER_LIGHT, 1),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+    formPanel.add(tagInputField, gbc);
+
+    // Language Filter
+    gbc.gridx = 0;
+    gbc.gridy = 1;
+    gbc.weightx = 0;
+    JLabel langLabel = new JLabel("💻 Language");
+    langLabel.setFont(new Font("Segoe UI", Font.BOLD, 12)); // Reduced font size
+    formPanel.add(langLabel, gbc);
+
+    gbc.gridx = 1;
+    gbc.weightx = 1.0;
+    languageFilterCombo = new JComboBox<>(new String[]{"All", "C++", "Java", "Python", "JavaScript", "Go", "Rust"});
+    languageFilterCombo.setPreferredSize(new Dimension(0, 25)); // Reduced height
+    languageFilterCombo.setFont(new Font("Segoe UI", Font.PLAIN, 10)); // Reduced font size
+    languageFilterCombo.setBackground(CARD_BG);
+    formPanel.add(languageFilterCombo, gbc);
+
+    // Result Limit
+    gbc.gridx = 0;
+    gbc.gridy = 2;
+    gbc.weightx = 0;
+    JLabel limitLabel = new JLabel("📊 Result Limit");
+    limitLabel.setFont(new Font("Segoe UI", Font.BOLD, 12)); // Reduced font size
+    formPanel.add(limitLabel, gbc);
+
+    gbc.gridx = 1;
+    gbc.weightx = 1.0;
+    SpinnerNumberModel spinnerModel = new SpinnerNumberModel(10, 1, 50, 1);
+    resultLimitSpinner = new JSpinner(spinnerModel);
+    resultLimitSpinner.setPreferredSize(new Dimension(0, 25)); // Reduced height
+    resultLimitSpinner.setFont(new Font("Segoe UI", Font.PLAIN, 10)); // Reduced font size
+    JSpinner.NumberEditor editor = new JSpinner.NumberEditor(resultLimitSpinner, "#");
+    resultLimitSpinner.setEditor(editor);
+    formPanel.add(resultLimitSpinner, gbc);
+
+    // Button Panel
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5)); // Reduced gap between buttons
+    buttonPanel.setBackground(CARD_BG);
+
+    recommendBtn = new RoundedButton("🔍 Get Recommendations", PRIMARY_BLUE, TEXT_LIGHT, 20); // Reduced font size
+    recommendBtn.setPreferredSize(new Dimension(160, 30)); // Reduced button size
+    recommendBtn.setFont(new Font("Segoe UI", Font.BOLD, 12)); // Reduced font size
+    recommendBtn.addActionListener(e -> getRecommendations());
+
+    JButton clearBtn = new RoundedButton("Clear", new Color(108, 117, 125), TEXT_LIGHT, 18); // Reduced font size
+    clearBtn.setPreferredSize(new Dimension(90, 40)); // Reduced button size
+    clearBtn.setFont(new Font("Segoe UI", Font.BOLD, 12)); // Reduced font size
+    clearBtn.addActionListener(e -> {
+        tagInputField.setText("");
+        resultsPanel.removeAll();
+        resultsPanel.revalidate();
+        resultsPanel.repaint();
+        codeArea.setText("// Select a recommendation to view code here");
+        codeInfoLabel.setText("Select a recommendation to view code");
+        copyBtn.setEnabled(false);
+    });
+
+    buttonPanel.add(recommendBtn);
+    buttonPanel.add(clearBtn);
+
+    card.add(headerPanel, BorderLayout.NORTH);
+    card.add(formPanel, BorderLayout.CENTER);
+    card.add(buttonPanel, BorderLayout.SOUTH);
+
+    return card;
+}
+
     private JPanel createCodeViewPanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180), 2),
-                "💻 Code View", TitledBorder.LEFT, TitledBorder.TOP,
-                new Font("Arial", Font.BOLD, 12)));
-        panel.setBackground(new Color(245, 245, 245));
+        panel.setBackground(CONTENT_BG);
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 20));
+
+        // Card container
+        JPanel card = new JPanel(new BorderLayout(10, 10));
+        card.setBackground(CARD_BG);
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BORDER_LIGHT, 1),
+                BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+
+        // Header
+        JLabel header = new JLabel("💻 Code View");
+        header.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        header.setForeground(TEXT_DARK);
 
         // Info section
-        JPanel infoPanel = new JPanel(new GridLayout(2, 2, 15, 8));
+        JPanel infoPanel = new JPanel(new BorderLayout());
         infoPanel.setBackground(new Color(240, 248, 255));
-        infoPanel.setBorder(new CompoundBorder(
-                new LineBorder(new Color(70, 130, 180), 1),
-                new EmptyBorder(10, 10, 10, 10)));
+        infoPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(ACCENT_BLUE, 1),
+                BorderFactory.createEmptyBorder(12, 12, 12, 12)));
 
         codeInfoLabel = new JLabel("Select a recommendation to view code");
-        codeInfoLabel.setFont(new Font("Arial", Font.ITALIC, 12));
-        codeInfoLabel.setForeground(new Color(100, 100, 100));
-        infoPanel.add(codeInfoLabel);
-
-        panel.add(infoPanel, BorderLayout.NORTH);
+        codeInfoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        codeInfoLabel.setForeground(TEXT_MUTED);
+        infoPanel.add(codeInfoLabel, BorderLayout.CENTER);
 
         // Code display area
         codeArea = new JTextArea("// Select a recommendation to view code here");
-        codeArea.setFont(new Font("Courier New", Font.PLAIN, 12));
+        codeArea.setFont(new Font("Consolas", Font.PLAIN, 13));
         codeArea.setEditable(false);
         codeArea.setLineWrap(true);
         codeArea.setWrapStyleWord(true);
-        codeArea.setBackground(new Color(30, 30, 30));
-        codeArea.setForeground(new Color(144, 238, 144)); // Light green for code
-        codeArea.setBorder(new EmptyBorder(10, 10, 10, 10));
+        codeArea.setBackground(CONSOLE_BG);
+        codeArea.setForeground(CONSOLE_TEXT);
+        codeArea.setCaretColor(CONSOLE_TEXT);
+        codeArea.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         JScrollPane codeScrollPane = new JScrollPane(codeArea);
-        codeScrollPane.setBorder(new LineBorder(new Color(100, 100, 100), 1));
-        panel.add(codeScrollPane, BorderLayout.CENTER);
+        codeScrollPane.setBorder(BorderFactory.createLineBorder(new Color(50, 53, 60), 1));
 
         // Button panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
-        buttonPanel.setBackground(new Color(245, 245, 245));
+        buttonPanel.setBackground(CARD_BG);
 
-        copyBtn = new JButton("📋 Copy Code");
+        copyBtn = new RoundedButton("📋 Copy Code", BUTTON_GREEN, TEXT_LIGHT, 20);
+        copyBtn.setPreferredSize(new Dimension(140, 38));
+        copyBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
         copyBtn.setEnabled(false);
         copyBtn.addActionListener(e -> {
             if (currentSelectedItem != null) {
@@ -145,7 +316,17 @@ public class RecommendationPanelPro extends JPanel {
 
         buttonPanel.add(copyBtn);
 
-        panel.add(buttonPanel, BorderLayout.SOUTH);
+        // Assemble card
+        JPanel topPanel = new JPanel(new BorderLayout(0, 15));
+        topPanel.setOpaque(false);
+        topPanel.add(header, BorderLayout.NORTH);
+        topPanel.add(infoPanel, BorderLayout.SOUTH);
+
+        card.add(topPanel, BorderLayout.NORTH);
+        card.add(codeScrollPane, BorderLayout.CENTER);
+        card.add(buttonPanel, BorderLayout.SOUTH);
+
+        panel.add(card, BorderLayout.CENTER);
 
         return panel;
     }
@@ -154,10 +335,11 @@ public class RecommendationPanelPro extends JPanel {
         currentSelectedItem = item;
 
         // Update info label
-        codeInfoLabel.setText(String.format("Algorithm: %s | Tags: %s | Language: %s | Score: %.2f",
+        codeInfoLabel.setText(String.format(
+                "<html><b>Algorithm:</b> %s | <b>Tags:</b> %s | <b>Language:</b> %s | <b>Score:</b> %.2f</html>",
                 item.title, item.tags.replace(";", ", "), item.language, item.score));
 
-        // Update code area - properly handle escape sequences
+        // Update code area
         String formattedCode = item.code.replace("\\n", "\n").replace("\\t", "\t");
         codeArea.setText(formattedCode);
         codeArea.setCaretPosition(0);
@@ -166,116 +348,15 @@ public class RecommendationPanelPro extends JPanel {
         copyBtn.setEnabled(true);
     }
 
-    private JPanel createHeaderPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(240, 248, 255));
-        panel.setBorder(new LineBorder(new Color(70, 130, 180), 2, true));
-        panel.setPreferredSize(new Dimension(0, 70));
-
-        JLabel headerLabel = new JLabel("🎯 Smart Recommendation Engine");
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 22));
-        headerLabel.setForeground(new Color(25, 25, 112));
-        panel.add(headerLabel, BorderLayout.WEST);
-
-        JLabel descLabel = new JLabel("Find related snippets based on tags using graph algorithms");
-        descLabel.setFont(new Font("Arial", Font.ITALIC, 11));
-        descLabel.setForeground(new Color(100, 100, 100));
-        panel.add(descLabel, BorderLayout.SOUTH);
-
-        return panel;
-    }
-
-    private JPanel createControlPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBackground(new Color(245, 245, 245));
-        panel.setBorder(new EmptyBorder(15, 15, 15, 15));
-
-        // Tag input
-        JPanel tagPanel = createInputSection("🏷️ Search by Tag",
-                "Enter a tag (e.g., 'algorithm', 'sorting')",
-                new Color(70, 130, 180));
-        tagInputField = new JTextField(20);
-        tagInputField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        tagInputField.setFont(new Font("Arial", Font.PLAIN, 13));
-        tagInputField.setBorder(new LineBorder(new Color(100, 149, 237), 2));
-        tagPanel.add(tagInputField);
-        panel.add(tagPanel);
-        panel.add(Box.createVerticalStrut(15));
-
-        // Language filter
-        JPanel langPanel = createInputSection("💻 Filter by Language",
-                "Select a programming language",
-                new Color(34, 139, 34));
-        languageFilterCombo = new JComboBox<>(new String[] { "All", "C++", "Java", "Python" });
-        languageFilterCombo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        languageFilterCombo.setFont(new Font("Arial", Font.PLAIN, 13));
-        langPanel.add(languageFilterCombo);
-        panel.add(langPanel);
-        panel.add(Box.createVerticalStrut(15));
-
-        // Result limit
-        JPanel limitPanel = createInputSection("📊 Result Limit",
-                "Number of recommendations (1-50)",
-                new Color(178, 34, 34));
-        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(10, 1, 50, 1);
-        resultLimitSpinner = new JSpinner(spinnerModel);
-        resultLimitSpinner.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        resultLimitSpinner.setFont(new Font("Arial", Font.PLAIN, 13));
-        JSpinner.NumberEditor editor = new JSpinner.NumberEditor(resultLimitSpinner, "#");
-        resultLimitSpinner.setEditor(editor);
-        limitPanel.add(resultLimitSpinner);
-        panel.add(limitPanel);
-        panel.add(Box.createVerticalStrut(20));
-
-        // Get recommendations button
-        recommendBtn = new JButton("🔍 GET RECOMMENDATIONS");
-        recommendBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        recommendBtn.setFont(new Font("Arial", Font.BOLD, 14));
-        recommendBtn.setBackground(new Color(220, 20, 60)); // Crimson red - highly visible
-        recommendBtn.setForeground(Color.WHITE);
-        recommendBtn.setOpaque(true);
-        recommendBtn.setBorder(new RoundBorder(10));
-        recommendBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        recommendBtn.addActionListener(e -> getRecommendations());
-        panel.add(recommendBtn);
-
-        panel.add(Box.createVerticalGlue());
-
-        return panel;
-    }
-
-    private JPanel createInputSection(String title, String hint, Color color) {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setOpaque(false);
-
-        JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 12));
-        titleLabel.setForeground(color);
-
-        JLabel hintLabel = new JLabel(hint);
-        hintLabel.setFont(new Font("Arial", Font.ITALIC, 10));
-        hintLabel.setForeground(new Color(128, 128, 128));
-
-        JPanel labelPanel = new JPanel(new BorderLayout());
-        labelPanel.setOpaque(false);
-        labelPanel.add(titleLabel, BorderLayout.WEST);
-        labelPanel.add(hintLabel, BorderLayout.EAST);
-
-        panel.add(labelPanel, BorderLayout.NORTH);
-        panel.add(Box.createVerticalStrut(8), BorderLayout.CENTER);
-
-        return panel;
-    }
-
     private JPanel createStatusPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(new EtchedBorder());
-        panel.setBackground(new Color(240, 248, 255));
+        panel.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
+        panel.setBackground(new Color(52, 58, 70));
+        panel.setPreferredSize(new Dimension(0, 35));
 
-        statusLabel = new JLabel("Ready to search...");
-        statusLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-        statusLabel.setForeground(new Color(100, 100, 100));
+        statusLabel = new JLabel("🟢 Ready to search...");
+        statusLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        statusLabel.setForeground(TEXT_LIGHT);
 
         panel.add(statusLabel, BorderLayout.WEST);
         return panel;
@@ -296,13 +377,10 @@ public class RecommendationPanelPro extends JPanel {
 
         new Thread(() -> {
             try {
-                // First try exact match
                 List<RecommendationItem> recommendations = searchTag(tag, limit, language);
 
-                // If no results, try fuzzy/related search
                 if (recommendations.isEmpty()) {
                     statusLabel.setText("🔍 No exact match found. Searching for related tags...");
-                    // Try to find similar tags by searching for partial matches
                     recommendations = fuzzySearchTags(tag, limit, language);
                 }
 
@@ -322,6 +400,8 @@ public class RecommendationPanelPro extends JPanel {
         List<RecommendationItem> recommendations = new ArrayList<>();
         ProcessBuilder pb = new ProcessBuilder(getExecutablePath(),
                 "rec_tag", tag, String.valueOf(limit));
+
+        pb.directory(getDataDirectory());
         pb.redirectErrorStream(true);
         Process process = pb.start();
 
@@ -334,18 +414,12 @@ public class RecommendationPanelPro extends JPanel {
                 } else if (line.equals("RECOMMENDATIONS_END")) {
                     capturing = false;
                 } else if (capturing) {
-                    String[] parts = line.split("\\|", 6); // Split into max 6 parts to preserve code with pipes
+                    String[] parts = line.split("\\|", 6);
                     if (parts.length >= 5) {
                         RecommendationItem item = new RecommendationItem(
-                                parts[0], // id
-                                parts[1], // title
-                                Double.parseDouble(parts[2]), // score
-                                parts[3], // tags
-                                parts[4], // language
-                                parts.length > 5 ? parts[5] : "" // code
-                        );
+                                parts[0], parts[1], Double.parseDouble(parts[2]),
+                                parts[3], parts[4], parts.length > 5 ? parts[5] : "");
 
-                        // Apply language filter
                         if ("All".equals(language) || language.equals(item.language)) {
                             recommendations.add(item);
                         }
@@ -360,9 +434,9 @@ public class RecommendationPanelPro extends JPanel {
     private List<RecommendationItem> fuzzySearchTags(String searchTag, int limit, String language) throws Exception {
         List<RecommendationItem> recommendations = new ArrayList<>();
 
-        // Get all top snippets and search through their tags
         ProcessBuilder pb = new ProcessBuilder(getExecutablePath(),
                 "top_snippets", String.valueOf(limit * 3));
+        pb.directory(getDataDirectory());
         pb.redirectErrorStream(true);
         Process process = pb.start();
 
@@ -378,18 +452,13 @@ public class RecommendationPanelPro extends JPanel {
                     String[] parts = line.split("\\|", 6);
                     if (parts.length >= 4) {
                         String tags = parts[3].toLowerCase();
-                        // Check if any tag contains or is similar to search term
                         if (tags.contains(searchTag) ||
                                 searchTag.contains(tags.split(";")[0]) ||
                                 levenshteinDistance(searchTag, tags.split(";")[0]) <= 2) {
                             RecommendationItem item = new RecommendationItem(
-                                    parts[0], // id
-                                    parts[1], // title
-                                    Double.parseDouble(parts[2]), // score
-                                    parts[3], // tags
-                                    parts.length > 4 ? parts[4] : "Unknown", // language
-                                    parts.length > 5 ? parts[5] : "" // code
-                            );
+                                    parts[0], parts[1], Double.parseDouble(parts[2]),
+                                    parts[3], parts.length > 4 ? parts[4] : "Unknown",
+                                    parts.length > 5 ? parts[5] : "");
                             if ("All".equals(language) || language.equals(item.language)) {
                                 recommendations.add(item);
                                 if (recommendations.size() >= limit)
@@ -404,15 +473,12 @@ public class RecommendationPanelPro extends JPanel {
         return recommendations;
     }
 
-    // Calculate Levenshtein distance for fuzzy matching
     private int levenshteinDistance(String s1, String s2) {
         int[][] dp = new int[s1.length() + 1][s2.length() + 1];
-        for (int i = 0; i <= s1.length(); i++) {
+        for (int i = 0; i <= s1.length(); i++)
             dp[i][0] = i;
-        }
-        for (int j = 0; j <= s2.length(); j++) {
+        for (int j = 0; j <= s2.length(); j++)
             dp[0][j] = j;
-        }
         for (int i = 1; i <= s1.length(); i++) {
             for (int j = 1; j <= s2.length(); j++) {
                 if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
@@ -429,17 +495,20 @@ public class RecommendationPanelPro extends JPanel {
         resultsPanel.removeAll();
 
         if (items.isEmpty()) {
-            JLabel noResults = new JLabel("No recommendations found for tag: " + tag);
-            noResults.setForeground(Color.RED);
-            noResults.setFont(new Font("Arial", Font.ITALIC, 12));
-            resultsPanel.add(noResults);
+            JPanel noResultPanel = new JPanel(new GridBagLayout());
+            noResultPanel.setBackground(CONTENT_BG);
+            JLabel noResults = new JLabel("<html><center>❌ No recommendations found for tag: <b>" + tag
+                    + "</b><br><br>Try different tags or check spelling</center></html>");
+            noResults.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+            noResults.setForeground(TEXT_MUTED);
+            noResultPanel.add(noResults);
+            resultsPanel.add(noResultPanel);
         } else {
             int rank = 1;
             for (RecommendationItem item : items) {
                 resultsPanel.add(createRecommendationCard(item, rank++));
                 resultsPanel.add(Box.createVerticalStrut(10));
             }
-            // Automatically display the first recommendation
             if (!items.isEmpty()) {
                 displayCodeView(items.get(0));
             }
@@ -453,15 +522,18 @@ public class RecommendationPanelPro extends JPanel {
     }
 
     private JPanel createRecommendationCard(RecommendationItem item, int rank) {
-        JPanel card = new JPanel(new BorderLayout(10, 5));
-        card.setBorder(new CompoundBorder(
-                new LineBorder(new Color(200, 200, 200), 1),
-                new EmptyBorder(12, 12, 12, 12)));
-        card.setBackground(Color.WHITE);
-        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
+        JPanel card = new JPanel(new BorderLayout(10, 8));
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(BORDER_LIGHT, 1),
+                BorderFactory.createEmptyBorder(12, 15, 12, 15)));
+        card.setBackground(CARD_BG);
+
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 130));
+        card.setPreferredSize(new Dimension(680, 130));
+        card.setMinimumSize(new Dimension(500, 130));
+
         card.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Add click listener to show code
         card.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -470,60 +542,73 @@ public class RecommendationPanelPro extends JPanel {
 
             @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
-                card.setBackground(new Color(240, 248, 255));
+                card.setBackground(HOVER_BG);
+                card.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(PRIMARY_BLUE, 2),
+                        BorderFactory.createEmptyBorder(12, 15, 12, 15)));
             }
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
-                card.setBackground(Color.WHITE);
+                card.setBackground(CARD_BG);
+                card.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(BORDER_LIGHT, 1),
+                        BorderFactory.createEmptyBorder(12, 15, 12, 15)));
             }
         });
 
-        // Rank and title
-        JPanel titlePanel = new JPanel(new BorderLayout());
+        // Title section
+        JPanel titlePanel = new JPanel(new BorderLayout(10, 0));
         titlePanel.setOpaque(false);
 
         JLabel rankLabel = new JLabel(String.format("#%d", rank));
-        rankLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        rankLabel.setForeground(new Color(70, 130, 180));
+        rankLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        rankLabel.setForeground(PRIMARY_BLUE);
+        rankLabel.setPreferredSize(new Dimension(35, 20));
 
         JLabel titleLabel = new JLabel(item.title);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 13));
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        titleLabel.setForeground(TEXT_DARK);
 
-        JLabel scoreLabel = new JLabel(String.format("Score: %.2f", item.score));
-        scoreLabel.setFont(new Font("Arial", Font.BOLD, 11));
-        scoreLabel.setForeground(new Color(34, 139, 34));
+        JLabel scoreLabel = new JLabel(String.format("%.2f", item.score));
+        scoreLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        scoreLabel.setForeground(BUTTON_GREEN);
+        scoreLabel.setBackground(new Color(220, 248, 228));
+        scoreLabel.setOpaque(true);
+        scoreLabel.setBorder(BorderFactory.createEmptyBorder(3, 10, 3, 10));
 
         titlePanel.add(rankLabel, BorderLayout.WEST);
         titlePanel.add(titleLabel, BorderLayout.CENTER);
         titlePanel.add(scoreLabel, BorderLayout.EAST);
 
-        // Details
-        JPanel detailsPanel = new JPanel(new BorderLayout());
+        // Details section
+        JPanel detailsPanel = new JPanel(new BorderLayout(10, 0));
         detailsPanel.setOpaque(false);
 
-        JLabel idLabel = new JLabel("ID: " + item.id);
-        idLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-        idLabel.setForeground(new Color(100, 100, 100));
+        // Create scrollable tags area
+        JTextArea tagsArea = new JTextArea("🏷️ " + item.tags.replace(";", "\n🏷️ "));
+        tagsArea.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        tagsArea.setForeground(TEXT_MUTED);
+        tagsArea.setBackground(CONTENT_BG);
+        tagsArea.setEditable(false);
+        tagsArea.setLineWrap(true);
+        tagsArea.setWrapStyleWord(true);
+        tagsArea.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 
-        JLabel tagsLabel = new JLabel("Tags: " + item.tags.replace(";", ", "));
-        tagsLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-        tagsLabel.setForeground(new Color(100, 100, 100));
+        JScrollPane tagsScrollPane = new JScrollPane(tagsArea);
+        tagsScrollPane.setBorder(BorderFactory.createEmptyBorder());
+        tagsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        tagsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        JLabel langLabel = new JLabel(String.format("[%s]", item.language));
-        langLabel.setFont(new Font("Arial", Font.BOLD, 10));
-        langLabel.setForeground(new Color(178, 34, 34));
-        langLabel.setBackground(new Color(255, 240, 245));
+        JLabel langLabel = new JLabel(item.language);
+        langLabel.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        langLabel.setForeground(TEXT_LIGHT);
+        langLabel.setBackground(BUTTON_ORANGE);
         langLabel.setOpaque(true);
-        langLabel.setBorder(new EmptyBorder(2, 5, 2, 5));
+        langLabel.setBorder(BorderFactory.createEmptyBorder(3, 8, 3, 8));
 
-        JPanel langPanel = new JPanel(new BorderLayout());
-        langPanel.setOpaque(false);
-        langPanel.add(langLabel, BorderLayout.EAST);
-
-        detailsPanel.add(idLabel, BorderLayout.WEST);
-        detailsPanel.add(tagsLabel, BorderLayout.CENTER);
-        detailsPanel.add(langPanel, BorderLayout.EAST);
+        detailsPanel.add(tagsScrollPane, BorderLayout.CENTER);
+        detailsPanel.add(langLabel, BorderLayout.EAST);
 
         card.add(titlePanel, BorderLayout.NORTH);
         card.add(detailsPanel, BorderLayout.CENTER);
@@ -531,14 +616,46 @@ public class RecommendationPanelPro extends JPanel {
         return card;
     }
 
+    // Custom rounded button
+    static class RoundedButton extends JButton {
+        private Color bgColor, fgColor;
+        private int radius;
+
+        public RoundedButton(String text, Color bg, Color fg, int radius) {
+            super(text);
+            this.bgColor = bg;
+            this.fgColor = fg;
+            this.radius = radius;
+            setContentAreaFilled(false);
+            setFocusPainted(false);
+            setBorderPainted(false);
+            setOpaque(false);
+            setForeground(fg);
+            setCursor(new Cursor(Cursor.HAND_CURSOR));
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2.setColor(getModel().isPressed() ? bgColor.darker()
+                    : (getModel().isRollover() ? bgColor.brighter() : bgColor));
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
+            g2.setColor(fgColor);
+            g2.setFont(getFont());
+            FontMetrics fm = g2.getFontMetrics();
+            int x = (getWidth() - fm.stringWidth(getText())) / 2;
+            int y = (getHeight() + fm.getAscent()) / 2 - 2;
+            g2.drawString(getText(), x, y);
+            g2.dispose();
+        }
+    }
+
     // Helper class for recommendation items
     private static class RecommendationItem {
-        String id;
-        String title;
+        String id, title, tags, language, code;
         double score;
-        String tags;
-        String language;
-        String code;
 
         RecommendationItem(String id, String title, double score, String tags, String language, String code) {
             this.id = id;
@@ -547,27 +664,6 @@ public class RecommendationPanelPro extends JPanel {
             this.tags = tags;
             this.language = language;
             this.code = code;
-        }
-    }
-
-    // Custom rounded button border
-    private static class RoundBorder extends AbstractBorder {
-        private int radius;
-
-        public RoundBorder(int radius) {
-            this.radius = radius;
-        }
-
-        @Override
-        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
-        }
-
-        @Override
-        public Insets getBorderInsets(Component c) {
-            return new Insets(10, 10, 10, 10);
         }
     }
 
