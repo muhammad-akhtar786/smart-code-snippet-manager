@@ -23,9 +23,9 @@ run: $(TARGET)
 
 test: $(TARGET)
 	@echo "Testing Module 3..."
-	./$(TARGET) load ../../../Data/sample_snippets.csv.csv
-	./$(TARGET) rec_tag "algorithm" ../../../Data/sample_snippets.csv.csv 5
-	./$(TARGET) top_snippets ../../../Data/sample_snippets.csv.csv 10
-	./$(TARGET) trending_tags ../../../Data/sample_snippets.csv
+	./$(TARGET) load Data/snippets_large.json
+	./$(TARGET) rec_tag "algorithm" 5
+	./$(TARGET) top_snippets 10
+	./$(TARGET) trending_tags 10
 
 .PHONY: all clean run test
