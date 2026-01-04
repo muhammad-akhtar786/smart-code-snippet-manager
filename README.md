@@ -6,14 +6,31 @@ This module provides intelligent recommendations and analytics for code snippets
 
 ## 📋 Project Structure
 
-```
+├── java/src/com/snippetmanager/module1/
+│   └── SnippetManagerPanel.java
+
 ├── java/src/com/snippetmanager/module3/
 │   ├── RecommendationPanelPro.java       (Search & recommendations)
 │   ├── AnalyticsDashboardPro.java        (Professional analytics with charts)
-│   ├── TagVisualization.java              (Tag relationship network)
-│   ├── MetricsDashboard.java              (Quality metrics display)
-│   └── Module3MainWindow.java             (Main application window)
-│
+│   ├── TagVisualization.java             (Tag relationship network)
+│   ├── MetricsDashboard.java             (Quality metrics display)
+│   └── Module3MainWindow.java            (Main application window)
+
+├── java/src/
+│   └── SmartCodeMain.java                (Main Java entry point)
+
+├── cpp/module1/
+│   ├── main.cpp                           (CLI command dispatcher / testing)
+│   ├── hashmap.cpp                        (Hashmap implementation)
+│   ├── hashmap.h
+│   ├── trie.cpp
+│   ├── trie.h
+│   ├── json.hpp
+│   ├── app.exe
+│   ├── main.exe
+│   ├── module1.exe
+│   └── output.txt
+
 ├── cpp/module3/
 │   ├── main.cpp                           (CLI command dispatcher)
 │   ├── recommendations.cpp                (Recommendation algorithms)
@@ -21,11 +38,19 @@ This module provides intelligent recommendations and analytics for code snippets
 │   ├── graph.cpp                          (Graph implementation)
 │   ├── graph.h                            (Graph header)
 │   └── module3.exe                        (Compiled executable)
-│
+
 ├── Data/
 │   └── sample_snippets.csv                (21 code snippets)
-│
-└── README.md                               (This file)
+
+├── bin/                                   (Compiled binaries)
+│   └── ... 
+
+├── compile_output.txt
+├── hs_err_pid19504.log
+├── replay_pid19504.log
+├── .gitignore
+└── README.md
+
 ```
 
 ## ✨ Key Features
